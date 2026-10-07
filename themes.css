@@ -426,53 +426,60 @@
 [data-theme="art"] .card-head { background-image: radial-gradient(ellipse at 15% 20%, rgba(255,255,255,.65), transparent 55%), radial-gradient(ellipse at 85% 90%, rgba(255,255,255,.4), transparent 50%); }
 [data-theme="art"] .card { border-radius: 6px 14px 8px 12px; }
 
-/* Panchiko: faded early-2000s CD-R with disc rot and a slight glitch */
+/* Panchiko: anime space-poster look — deep navy sky with meteor streaks,
+   bold spacesuit orange and royal blue, cards like a white-ruled tour list,
+   and a thin, very wide M>Y>P>L>A>N>N>E>R wordmark. */
 [data-theme="panchiko"] {
-  --ink: #2c2a3a; --muted: #7d7890; --line: #e2dde8; --bg: #f2eef0; --card: #fbf9fa;
-  --purple: #e2dcf0; --purple-ink: #7d6bb5;
-  --pink: #f5d6df;   --pink-ink: #c95f82;
-  --blue: #d6e6f3;   --blue-ink: #4f86b8;
-  --green: #dbeadf;  --green-ink: #5a9273;
-  --peach: #f1e3d2;  --peach-ink: #a8754a;
-  --yellow: #f2ecd0; --yellow-ink: #a08a2e;
-  --grey: #ebe7ec;   --grey-ink: #7d7890;
-  --accent: #c95f82;
-  --stripe: radial-gradient(circle at 12% 40%, rgba(70,50,40,.55) 0 1.5px, transparent 2px) 0 0 / 37px 14px, radial-gradient(circle at 60% 70%, rgba(70,50,40,.4) 0 1px, transparent 1.5px) 0 0 / 23px 14px, linear-gradient(90deg, #d9d4e6, #f7c9d9, #fdf0c4, #c9ecdc, #bcdcf3, #dac6f0, #f7c9d9, #d9d4e6);
-  --stripe-h: 14px;
-  --progress: linear-gradient(90deg, #bcdcf3, #dac6f0, #f7c9d9);
-  --now: #f7efd9; --slot-line: #ece8ee; --slot-hover: #f3eef6;
-  /* Faint scanlines, like a worn screen */
-  --pattern: repeating-linear-gradient(0deg, rgba(60,50,80,.025) 0 1px, transparent 1px 3px), radial-gradient(ellipse at 15% 10%, #f7dde6 0, transparent 45%), radial-gradient(ellipse at 90% 80%, #dce9f5 0, transparent 45%);
-  --head-font: "Space Mono", "Courier New", monospace; --head-weight: 700;
-  --head-case: uppercase; --head-spacing: .12em;
-  --deco: "💿 "; --radius: 6px;
+  --ink: #f4f1ea; --muted: #a9b0d0; --line: rgba(244, 241, 234, .22); --bg: #070b24; --card: #0e1333;
+  --purple: #2340c9; --purple-ink: #7d95ff;
+  --pink: #e2600e;   --pink-ink: #ff8a3d;
+  --blue: #1d5fa8;   --blue-ink: #5ec8ff;
+  --green: #4a6a3a;  --green-ink: #a3d36e;
+  --peach: #8a6d42;  --peach-ink: #f0d9a8;
+  --yellow: #8c6416; --yellow-ink: #ffd23f;
+  --grey: #1c2250;   --grey-ink: #a9b0d0;
+  --field: #0a0e2a;
+  --accent: #ff7a1f; --on-accent: #070b24;
+  --stripe: linear-gradient(90deg, #ff7a1f 0 58%, #f4f1ea 58% 64%, #2340c9 64% 94%, #f4f1ea 94%);
+  --stripe-h: 10px;
+  --progress: linear-gradient(90deg, #2340c9, #ff7a1f);
+  --now: #2a2350; --slot-line: rgba(244, 241, 234, .07); --slot-hover: #171d48;
+  /* Meteor streaks, a scatter of stars, and the edge of a blue planet */
+  --pattern:
+    repeating-linear-gradient(118deg, transparent 0 170px, rgba(255, 255, 255, .16) 170px 171px, transparent 171px 340px),
+    repeating-linear-gradient(112deg, transparent 0 95px, rgba(255, 255, 255, .07) 95px 96px, transparent 96px 230px),
+    radial-gradient(1.5px 1.5px at 40px 60px, #fff, transparent),
+    radial-gradient(1px 1px at 160px 130px, #dfe6ff, transparent),
+    radial-gradient(ellipse 90% 40% at 50% 115%, #1d34b8 0 60%, #13207a 61% 70%, transparent 71%);
+  --body-font: "Nunito", system-ui, sans-serif;
+  --head-font: "Oswald", "Bebas Neue", sans-serif; --head-weight: 600;
+  --head-case: uppercase; --head-spacing: .05em;
+  --deco: ""; --radius: 0;
+  color-scheme: dark;
 }
-[data-theme="panchiko"] .top h1,
-[data-theme="panchiko"] .card-head h2,
-[data-theme="panchiko"] #date-label,
-[data-theme="panchiko"] #week-label,
-.theme-card[data-theme="panchiko"] .tc-name {
-  text-shadow: -1.5px 0 rgba(255, 40, 110, .35), 1.5px 0 rgba(0, 150, 255, .35);
+[data-theme="panchiko"] body { background-size: auto, auto, 220px 220px, 220px 220px, auto; }
+/* Swap the title for the wordmark (screen readers still get "My Planner") */
+[data-theme="panchiko"] .top h1 { font-size: 0; }
+[data-theme="panchiko"] .top h1::after {
+  content: "M>Y>P>L>A>N>N>E>R";
+  font-family: "Lexend Zetta", sans-serif; font-weight: 300; font-size: 1.3rem;
+  letter-spacing: .02em; text-transform: none; color: #f4f1ea;
 }
-[data-theme="panchiko"] .card-head h2 { font-size: .9rem; }
-[data-theme="panchiko"] .top h1 { font-size: 1.5rem; }
-[data-theme="panchiko"] #date-label { font-size: 1.05rem; }
-[data-theme="panchiko"] .tab { font-size: .8rem; }
-/* Disc-rot speckles on the card headings */
-[data-theme="panchiko"] .card-head {
-  background-image: radial-gradient(circle at 20% 30%, rgba(90,70,60,.18) 0 1px, transparent 1.5px), radial-gradient(circle at 70% 60%, rgba(90,70,60,.14) 0 1.5px, transparent 2px);
-  background-size: 19px 13px, 31px 17px;
-}
-/* A little iridescent CD on each card */
-[data-theme="panchiko"] main .card { position: relative; }
-[data-theme="panchiko"] main .card::after {
-  content: ""; position: absolute; top: -9px; right: 14px; width: 24px; height: 24px; border-radius: 50%;
-  background: radial-gradient(circle, #f2eef0 0 3px, #cfcad6 3.5px 4.5px, transparent 5px), conic-gradient(#d9d4e6, #f7c9d9, #fdf0c4, #c9ecdc, #bcdcf3, #dac6f0, #d9d4e6);
-  box-shadow: 0 0 0 1px rgba(60,50,80,.15);
-}
+.theme-card[data-theme="panchiko"] .tc-name { font-family: "Lexend Zetta", sans-serif; font-weight: 300; text-transform: none; letter-spacing: 0; font-size: .85rem; }
+/* Cards like the poster's tour-date list: dark panel, thin white frame */
+[data-theme="panchiko"] .card { border: 1.5px solid rgba(244, 241, 234, .85); }
+[data-theme="panchiko"] .card-head { margin: -12px -14px 10px; color: #fff; }
+[data-theme="panchiko"] .card-head span { color: rgba(255, 255, 255, .8); }
+[data-theme="panchiko"] .focus, [data-theme="panchiko"] .dump { background: var(--card); }
+[data-theme="panchiko"] .focus .card-head { background: #2340c9; }
+[data-theme="panchiko"] .dump .card-head { background: #e2600e; }
+[data-theme="panchiko"] .tabs { background: rgba(14, 19, 51, .85); border: 1px solid rgba(244, 241, 234, .5); border-radius: 0; }
+[data-theme="panchiko"] .tab { border-radius: 0; }
+[data-theme="panchiko"] .tab.active { background: #f4f1ea; color: #070b24; }
+[data-theme="panchiko"] .icon-btn { border-radius: 0; background: var(--card); border-color: rgba(244, 241, 234, .6); }
 @media (max-width: 420px) {
-  [data-theme="panchiko"] .tab { font-size: .72rem; padding: 8px 7px; }
-  [data-theme="panchiko"] .top h1 { font-size: 1.25rem; }
+  [data-theme="panchiko"] .top h1::after { font-size: .78rem; }
+  [data-theme="panchiko"] .tab { font-size: .82rem; letter-spacing: .02em; padding: 8px 7px; }
 }
 
 /* ---------------- Animals ---------------- */
@@ -588,8 +595,8 @@
    and fonts, darkens the surfaces, and tints headings from the
    theme's own ink colours. Themes that are already dark ignore it.
    ========================================================= */
-html[data-dark="on"]:not([data-theme="emo"], [data-theme="grunge"], [data-theme="space"], [data-theme="music"], [data-theme="gaming"]),
-html[data-dark="on"] .theme-card:not([data-theme="emo"], [data-theme="grunge"], [data-theme="space"], [data-theme="music"], [data-theme="gaming"]) {
+html[data-dark="on"]:not([data-theme="emo"], [data-theme="grunge"], [data-theme="space"], [data-theme="music"], [data-theme="gaming"], [data-theme="panchiko"]),
+html[data-dark="on"] .theme-card:not([data-theme="emo"], [data-theme="grunge"], [data-theme="space"], [data-theme="music"], [data-theme="gaming"], [data-theme="panchiko"]) {
   --ink: #ecebf0; --muted: #a3a1ad; --line: #2f2e37;
   --bg: #121216; --card: #1c1c22; --field: #16161b;
   --purple: color-mix(in srgb, var(--purple-ink) 30%, #1c1c22);
@@ -609,5 +616,5 @@ html[data-dark="on"] .theme-card:not([data-theme="emo"], [data-theme="grunge"], 
 html[data-dark="on"][data-theme="minimal"], html[data-dark="on"] .theme-card[data-theme="minimal"] {
   --accent: #f1f1f1; --on-accent: #111111; --stripe: #f1f1f1; --progress: #f1f1f1;
 }
-html[data-dark="on"]:not([data-theme="emo"], [data-theme="grunge"], [data-theme="space"], [data-theme="music"], [data-theme="gaming"]) .card { box-shadow: none; }
+html[data-dark="on"]:not([data-theme="emo"], [data-theme="grunge"], [data-theme="space"], [data-theme="music"], [data-theme="gaming"], [data-theme="panchiko"]) .card { box-shadow: none; }
 html[data-dark="on"][data-theme="art"] .card-head { background-image: none; }
