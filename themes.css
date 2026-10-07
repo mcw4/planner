@@ -497,24 +497,7 @@
 [data-theme="panchiko"] .stars button.on { opacity: 1; }
 [data-theme="panchiko"] .top, [data-theme="panchiko"] main, [data-theme="panchiko"] dialog,
 .theme-card[data-theme="panchiko"] { filter: grayscale(1); }
-/* Her own drawing, framed as a manga panel with cover-style vertical lettering */
-[data-theme="panchiko"] .theme-art {
-  display: block; position: relative; height: 260px; margin-bottom: 16px;
-  border: 2.5px solid #111; background: #fff url("art/panchiko.jpg") center 36% / cover no-repeat;
-}
-[data-theme="panchiko"] .theme-art::after {
-  content: "PLANNER"; position: absolute; top: 0; right: 0; bottom: 0; padding: 10px 6px;
-  writing-mode: vertical-rl; transform: rotate(180deg); /* reads bottom to top, like the cover */
-  background: rgba(255, 255, 255, .88); border-right: 2.5px solid #111;
-  font: italic 900 2.1rem/1 "Archivo", "Arial Black", sans-serif; letter-spacing: .02em; color: #111;
-  text-align: center;
-}
-.theme-card[data-theme="panchiko"] {
-  background: linear-gradient(90deg, #fbfbfb 45%, rgba(251, 251, 251, .2)), url("art/panchiko.jpg") 70% 35% / cover;
-}
 @media (max-width: 420px) {
-  [data-theme="panchiko"] .theme-art { height: 190px; }
-  [data-theme="panchiko"] .theme-art::after { font-size: 1.5rem; }
   [data-theme="panchiko"] .top h1::after { font-size: 1.05rem; }
   [data-theme="panchiko"] .tab { font-size: .85rem; padding: 8px 7px; }
 }
