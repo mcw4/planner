@@ -36,6 +36,7 @@
     sporty: { group: "Interests", name: "Sporty", meta: "#13315c", star: "🔥", moods: ["😫", "😕", "😐", "😀", "💪"] },
     music: { group: "Interests", name: "Music", meta: "#111114", star: "💚", moods: ["😖", "😕", "😐", "🙂", "🤩"], dark: true },
     gaming: { group: "Interests", name: "Gaming", meta: "#1d2b53", star: "❤️", moods: ["💀", "😵", "😐", "😀", "🏆"], dark: true },
+    panchiko: { group: "Interests", name: "Panchiko", meta: "#f7c9d9", star: "💿", moods: ["💔", "😔", "😶", "🙂", "🌸"] },
     art: { group: "Interests", name: "Art", meta: "#fffdf8", star: "🖌️", moods: ["😢", "😕", "😐", "🙂", "🤩"] },
     cats: { group: "Animals", name: "Cats", meta: "#ffe9ee", star: "🐾", moods: ["😿", "😾", "🐱", "😺", "😸"] },
     dogs: { group: "Animals", name: "Dogs", meta: "#d64545", star: "🦴", moods: ["😢", "😕", "😐", "🙂", "🐶"] },

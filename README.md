@@ -11,7 +11,7 @@ On a phone, open the link and use **Add to Home Screen** so it opens like an app
 - **My Week**: set up the routine that repeats every week in 30-minute slots. Tap an empty slot to add something, or tap a block to edit it. Use **Copy a day…** to copy Monday onto Tuesday–Friday. Put the school timetable in the notes of the School block. **Load school-day example** fills Mon–Fri with a starter routine.
 - **Today**: the daily page shows today's focus, priorities, do later, everything else, habits & self care, brain dump, productivity, mood and energy. The daily schedule comes from that weekday's routine. You can tick items off, skip an item for today only, or add one-offs.
 - **Summary**: a weekly recap with average mood, check-ins done, habits kept and things ticked off. It also shows mood, productivity and energy for each day, and a habit grid with streaks. Use the arrows to look back at earlier weeks.
-- **Settings**: pick a theme (21 options in five groups: Classic, Aesthetic, Nature, Interests and Animals), turn on dark mode, install the app, set reminders, change the hours shown and the habits list, and back up or restore your data.
+- **Settings**: pick a theme (22 options in five groups: Classic, Aesthetic, Nature, Interests and Animals), turn on dark mode, install the app, set reminders, change the hours shown and the habits list, and back up or restore your data.
 
 ## Installing and reminders
 

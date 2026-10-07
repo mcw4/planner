@@ -426,6 +426,55 @@
 [data-theme="art"] .card-head { background-image: radial-gradient(ellipse at 15% 20%, rgba(255,255,255,.65), transparent 55%), radial-gradient(ellipse at 85% 90%, rgba(255,255,255,.4), transparent 50%); }
 [data-theme="art"] .card { border-radius: 6px 14px 8px 12px; }
 
+/* Panchiko: faded early-2000s CD-R with disc rot and a slight glitch */
+[data-theme="panchiko"] {
+  --ink: #2c2a3a; --muted: #7d7890; --line: #e2dde8; --bg: #f2eef0; --card: #fbf9fa;
+  --purple: #e2dcf0; --purple-ink: #7d6bb5;
+  --pink: #f5d6df;   --pink-ink: #c95f82;
+  --blue: #d6e6f3;   --blue-ink: #4f86b8;
+  --green: #dbeadf;  --green-ink: #5a9273;
+  --peach: #f1e3d2;  --peach-ink: #a8754a;
+  --yellow: #f2ecd0; --yellow-ink: #a08a2e;
+  --grey: #ebe7ec;   --grey-ink: #7d7890;
+  --accent: #c95f82;
+  --stripe: radial-gradient(circle at 12% 40%, rgba(70,50,40,.55) 0 1.5px, transparent 2px) 0 0 / 37px 14px, radial-gradient(circle at 60% 70%, rgba(70,50,40,.4) 0 1px, transparent 1.5px) 0 0 / 23px 14px, linear-gradient(90deg, #d9d4e6, #f7c9d9, #fdf0c4, #c9ecdc, #bcdcf3, #dac6f0, #f7c9d9, #d9d4e6);
+  --stripe-h: 14px;
+  --progress: linear-gradient(90deg, #bcdcf3, #dac6f0, #f7c9d9);
+  --now: #f7efd9; --slot-line: #ece8ee; --slot-hover: #f3eef6;
+  /* Faint scanlines, like a worn screen */
+  --pattern: repeating-linear-gradient(0deg, rgba(60,50,80,.025) 0 1px, transparent 1px 3px), radial-gradient(ellipse at 15% 10%, #f7dde6 0, transparent 45%), radial-gradient(ellipse at 90% 80%, #dce9f5 0, transparent 45%);
+  --head-font: "Space Mono", "Courier New", monospace; --head-weight: 700;
+  --head-case: uppercase; --head-spacing: .12em;
+  --deco: "💿 "; --radius: 6px;
+}
+[data-theme="panchiko"] .top h1,
+[data-theme="panchiko"] .card-head h2,
+[data-theme="panchiko"] #date-label,
+[data-theme="panchiko"] #week-label,
+.theme-card[data-theme="panchiko"] .tc-name {
+  text-shadow: -1.5px 0 rgba(255, 40, 110, .35), 1.5px 0 rgba(0, 150, 255, .35);
+}
+[data-theme="panchiko"] .card-head h2 { font-size: .9rem; }
+[data-theme="panchiko"] .top h1 { font-size: 1.5rem; }
+[data-theme="panchiko"] #date-label { font-size: 1.05rem; }
+[data-theme="panchiko"] .tab { font-size: .8rem; }
+/* Disc-rot speckles on the card headings */
+[data-theme="panchiko"] .card-head {
+  background-image: radial-gradient(circle at 20% 30%, rgba(90,70,60,.18) 0 1px, transparent 1.5px), radial-gradient(circle at 70% 60%, rgba(90,70,60,.14) 0 1.5px, transparent 2px);
+  background-size: 19px 13px, 31px 17px;
+}
+/* A little iridescent CD on each card */
+[data-theme="panchiko"] main .card { position: relative; }
+[data-theme="panchiko"] main .card::after {
+  content: ""; position: absolute; top: -9px; right: 14px; width: 24px; height: 24px; border-radius: 50%;
+  background: radial-gradient(circle, #f2eef0 0 3px, #cfcad6 3.5px 4.5px, transparent 5px), conic-gradient(#d9d4e6, #f7c9d9, #fdf0c4, #c9ecdc, #bcdcf3, #dac6f0, #d9d4e6);
+  box-shadow: 0 0 0 1px rgba(60,50,80,.15);
+}
+@media (max-width: 420px) {
+  [data-theme="panchiko"] .tab { font-size: .72rem; padding: 8px 7px; }
+  [data-theme="panchiko"] .top h1 { font-size: 1.25rem; }
+}
+
 /* ---------------- Animals ---------------- */
 
 [data-theme="horses"] {
