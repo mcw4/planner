@@ -83,6 +83,8 @@ h1, h2, h3, .card-head h2, #date-label, .col-head, .tab {
 
 main { max-width: 1100px; margin: 0 auto; padding: 0 16px; }
 .view { display: none; }
+/* Optional artwork panel; a theme turns it on */
+.theme-art { display: none; }
 .view.active { display: block; }
 
 /* Cards */
