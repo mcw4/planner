@@ -15,13 +15,22 @@
     free: "Free time",
   };
   const LISTS = { priorities: 3, later: 3, other: 5 };
-  const MOODS = ["😢", "😕", "😐", "🙂", "😄"];
+  // Colours, fonts and decorations live in styles.css under [data-theme="…"];
+  // this holds the bits that are content rather than style.
+  const THEMES = {
+    pastel: { name: "Pastel", meta: "#dcc6f2", star: "⭐", moods: ["😢", "😕", "😐", "🙂", "😄"] },
+    rainbow: { name: "Rainbow", meta: "#ff9f1a", star: "🌟", moods: ["😢", "😕", "😐", "🙂", "🥳"] },
+    emo: { name: "Emo", meta: "#0d0d10", star: "💜", moods: ["💀", "😒", "😶", "🙂", "🤘"] },
+    sporty: { name: "Sporty", meta: "#13315c", star: "🔥", moods: ["😫", "😕", "😐", "😀", "💪"] },
+    cats: { name: "Cats", meta: "#ffe9ee", star: "🐾", moods: ["😿", "😾", "🐱", "😺", "😸"] },
+  };
 
   const defaultState = () => ({
     settings: {
       dayStart: "06:00",
       dayEnd: "22:30",
       habits: ["Drink water", "Move my body", "Read for 20 minutes", "Screen-free hour before bed"],
+      theme: "pastel",
       reminders: {
         morning: { on: true, time: "07:00" },
         evening: { on: true, time: "20:30" },
@@ -258,8 +267,9 @@
         return btn;
       }));
     };
-    rating($("#productivity"), "productivity", 5, () => "⭐");
-    rating($("#mood"), "mood", 5, (i) => MOODS[i]);
+    const t = currentTheme();
+    rating($("#productivity"), "productivity", 5, () => t.star);
+    rating($("#mood"), "mood", 5, (i) => t.moods[i]);
     rating($("#energy"), "energy", 5, () => "");
   }
 
@@ -498,8 +508,39 @@
     $("#set-start").value = state.settings.dayStart;
     $("#set-end").value = state.settings.dayEnd;
     $("#set-habits").value = state.settings.habits.join("\n");
+    renderThemePicker();
     renderInstall();
     renderReminders();
+  }
+
+  // ---------- Themes ----------
+  const currentTheme = () => THEMES[state.settings.theme] || THEMES.pastel;
+
+  function applyTheme() {
+    const key = THEMES[state.settings.theme] ? state.settings.theme : "pastel";
+    document.documentElement.dataset.theme = key;
+    $('meta[name="theme-color"]').setAttribute("content", THEMES[key].meta);
+  }
+
+  function renderThemePicker() {
+    const dots = ["--purple-ink", "--pink-ink", "--blue-ink", "--green-ink", "--peach-ink"];
+    $("#theme-grid").replaceChildren(...Object.entries(THEMES).map(([key, t]) => el("button", {
+      type: "button",
+      class: `theme-card${key === (state.settings.theme || "pastel") ? " selected" : ""}`,
+      "data-theme": key,
+      "aria-pressed": String(key === state.settings.theme),
+      onclick: () => {
+        state.settings.theme = key;
+        save();
+        applyTheme();
+        renderThemePicker();
+        renderRatings(getDay(dateKey(currentDate)));
+      },
+    },
+    el("div", { class: "tc-stripe" }),
+    el("div", { class: "tc-body" },
+      el("span", { class: "tc-name", text: t.name }),
+      el("div", { class: "tc-dots" }, dots.map((v) => el("span", { style: `background:var(${v})` })))))));
   }
   const roundToSlot = (t) => fromMin(Math.round(toMin(t) / 30) * 30);
   $("#set-start").addEventListener("change", (e) => { if (e.target.value) { state.settings.dayStart = roundToSlot(e.target.value); save(); } });
@@ -849,6 +890,7 @@
   }
 
   // ---------- Start ----------
+  applyTheme();
   renderToday();
   // Keep the "now" highlight fresh if the page stays open.
   setInterval(() => { if ($("#view-today").classList.contains("active") && !document.querySelector("dialog[open]") && !document.activeElement?.matches("input, textarea")) renderToday(); }, 5 * 60 * 1000);

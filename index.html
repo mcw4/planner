@@ -13,7 +13,14 @@
   <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Permanent+Marker&family=Bebas+Neue&family=Barlow:wght@400;600;700&family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    // Apply the saved theme before first paint so the page doesn't flash the default.
+    try {
+      var t = JSON.parse(localStorage.getItem("planner.v1")).settings.theme;
+      if (t) document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -116,6 +123,10 @@
 
     <!-- SETTINGS -->
     <section id="view-settings" class="view">
+      <div class="card">
+        <div class="card-head theme-head"><h2>Theme</h2><span>Pick your vibe</span></div>
+        <div class="theme-grid" id="theme-grid"></div>
+      </div>
       <div class="card">
         <div class="card-head install-head"><h2>Put it on your phone</h2></div>
         <div id="install-box"></div>
