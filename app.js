@@ -18,7 +18,8 @@
   // Colours, fonts and decorations live in styles.css under [data-theme="…"];
   // this holds the bits that are content rather than style.
   // `star` is the productivity icon: one emoji, or five (one per level).
-  // `dark` marks themes that are dark already, so the dark-mode switch leaves them alone.
+  // `dark` marks themes that keep their own look in dark mode (the dark ones, plus
+  // Panchiko's black-and-white manga page), so the dark-mode switch leaves them alone.
   const THEMES = {
     pastel: { group: "Classic", name: "Pastel", meta: "#dcc6f2", star: "⭐", moods: ["😢", "😕", "😐", "🙂", "😄"] },
     rainbow: { group: "Classic", name: "Rainbow", meta: "#ff9f1a", star: "🌟", moods: ["😢", "😕", "😐", "🙂", "🥳"] },
@@ -36,7 +37,7 @@
     sporty: { group: "Interests", name: "Sporty", meta: "#13315c", star: "🔥", moods: ["😫", "😕", "😐", "😀", "💪"] },
     music: { group: "Interests", name: "Music", meta: "#111114", star: "💚", moods: ["😖", "😕", "😐", "🙂", "🤩"], dark: true },
     gaming: { group: "Interests", name: "Gaming", meta: "#1d2b53", star: "❤️", moods: ["💀", "😵", "😐", "😀", "🏆"], dark: true },
-    panchiko: { group: "Interests", name: "Panchiko", meta: "#0a0a0a", star: "🌠", moods: ["😢", "😔", "😶", "🙂", "🤩"], dark: true },
+    panchiko: { group: "Interests", name: "Panchiko", meta: "#e9e9e9", star: "★", moods: ["😢", "😔", "😶", "🙂", "😆"], dark: true },
     art: { group: "Interests", name: "Art", meta: "#fffdf8", star: "🖌️", moods: ["😢", "😕", "😐", "🙂", "🤩"] },
     cats: { group: "Animals", name: "Cats", meta: "#ffe9ee", star: "🐾", moods: ["😿", "😾", "🐱", "😺", "😸"] },
     dogs: { group: "Animals", name: "Dogs", meta: "#d64545", star: "🦴", moods: ["😢", "😕", "😐", "🙂", "🐶"] },
