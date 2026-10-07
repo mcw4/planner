@@ -426,31 +426,32 @@
 [data-theme="art"] .card-head { background-image: radial-gradient(ellipse at 15% 20%, rgba(255,255,255,.65), transparent 55%), radial-gradient(ellipse at 85% 90%, rgba(255,255,255,.4), transparent 50%); }
 [data-theme="art"] .card { border-radius: 6px 14px 8px 12px; }
 
-/* Panchiko: anime space-poster look — deep navy sky with meteor streaks,
-   bold spacesuit orange and royal blue, cards like a white-ruled tour list,
-   and a thin, very wide M>Y>P>L>A>N>N>E>R wordmark. */
+/* Panchiko: monotone anime space-poster look — black sky with meteor
+   streaks and a grey planet edge, cards like a white-ruled tour list,
+   greys instead of colour (each category its own shade), and a thin,
+   very wide M>Y>P>L>A>N>N>E>R wordmark. */
 [data-theme="panchiko"] {
-  --ink: #f4f1ea; --muted: #a9b0d0; --line: rgba(244, 241, 234, .22); --bg: #070b24; --card: #0e1333;
-  --purple: #2340c9; --purple-ink: #7d95ff;
-  --pink: #e2600e;   --pink-ink: #ff8a3d;
-  --blue: #1d5fa8;   --blue-ink: #5ec8ff;
-  --green: #4a6a3a;  --green-ink: #a3d36e;
-  --peach: #8a6d42;  --peach-ink: #f0d9a8;
-  --yellow: #8c6416; --yellow-ink: #ffd23f;
-  --grey: #1c2250;   --grey-ink: #a9b0d0;
-  --field: #0a0e2a;
-  --accent: #ff7a1f; --on-accent: #070b24;
-  --stripe: linear-gradient(90deg, #ff7a1f 0 58%, #f4f1ea 58% 64%, #2340c9 64% 94%, #f4f1ea 94%);
+  --ink: #f2f2f2; --muted: #a3a3a3; --line: rgba(255, 255, 255, .22); --bg: #0a0a0a; --card: #131313;
+  --purple: #3d3d3d; --purple-ink: #ffffff;
+  --pink: #5c5c5c;   --pink-ink: #d4d4d4;
+  --blue: #2b2b2b;   --blue-ink: #b8b8b8;
+  --green: #4a4a4a;  --green-ink: #e6e6e6;
+  --peach: #6b6b6b;  --peach-ink: #c7c7c7;
+  --yellow: #333333; --yellow-ink: #9e9e9e;
+  --grey: #222222;   --grey-ink: #a3a3a3;
+  --field: #0e0e0e;
+  --accent: #f2f2f2; --on-accent: #0a0a0a;
+  --stripe: linear-gradient(90deg, #f2f2f2 0 58%, #0a0a0a 58% 64%, #6b6b6b 64% 94%, #f2f2f2 94%);
   --stripe-h: 10px;
-  --progress: linear-gradient(90deg, #2340c9, #ff7a1f);
-  --now: #2a2350; --slot-line: rgba(244, 241, 234, .07); --slot-hover: #171d48;
-  /* Meteor streaks, a scatter of stars, and the edge of a blue planet */
+  --progress: linear-gradient(90deg, #5c5c5c, #ffffff);
+  --now: #262626; --slot-line: rgba(255, 255, 255, .07); --slot-hover: #1c1c1c;
+  /* Meteor streaks, a scatter of stars, and the edge of a planet */
   --pattern:
     repeating-linear-gradient(118deg, transparent 0 170px, rgba(255, 255, 255, .16) 170px 171px, transparent 171px 340px),
     repeating-linear-gradient(112deg, transparent 0 95px, rgba(255, 255, 255, .07) 95px 96px, transparent 96px 230px),
     radial-gradient(1.5px 1.5px at 40px 60px, #fff, transparent),
-    radial-gradient(1px 1px at 160px 130px, #dfe6ff, transparent),
-    radial-gradient(ellipse 90% 40% at 50% 115%, #1d34b8 0 60%, #13207a 61% 70%, transparent 71%);
+    radial-gradient(1px 1px at 160px 130px, #e6e6e6, transparent),
+    radial-gradient(ellipse 90% 40% at 50% 115%, #2e2e2e 0 60%, #1c1c1c 61% 70%, transparent 71%);
   --body-font: "Nunito", system-ui, sans-serif;
   --head-font: "Oswald", "Bebas Neue", sans-serif; --head-weight: 600;
   --head-case: uppercase; --head-spacing: .05em;
@@ -463,20 +464,24 @@
 [data-theme="panchiko"] .top h1::after {
   content: "M>Y>P>L>A>N>N>E>R";
   font-family: "Lexend Zetta", sans-serif; font-weight: 300; font-size: 1.3rem;
-  letter-spacing: .02em; text-transform: none; color: #f4f1ea;
+  letter-spacing: .02em; text-transform: none; color: #f2f2f2;
 }
 .theme-card[data-theme="panchiko"] .tc-name { font-family: "Lexend Zetta", sans-serif; font-weight: 300; text-transform: none; letter-spacing: 0; font-size: .85rem; }
 /* Cards like the poster's tour-date list: dark panel, thin white frame */
-[data-theme="panchiko"] .card { border: 1.5px solid rgba(244, 241, 234, .85); }
+[data-theme="panchiko"] .card { border: 1.5px solid rgba(255, 255, 255, .85); }
 [data-theme="panchiko"] .card-head { margin: -12px -14px 10px; color: #fff; }
 [data-theme="panchiko"] .card-head span { color: rgba(255, 255, 255, .8); }
 [data-theme="panchiko"] .focus, [data-theme="panchiko"] .dump { background: var(--card); }
-[data-theme="panchiko"] .focus .card-head { background: #2340c9; }
-[data-theme="panchiko"] .dump .card-head { background: #e2600e; }
-[data-theme="panchiko"] .tabs { background: rgba(14, 19, 51, .85); border: 1px solid rgba(244, 241, 234, .5); border-radius: 0; }
+/* Focus and brain dump get the poster's white band with black lettering */
+[data-theme="panchiko"] .focus .card-head, [data-theme="panchiko"] .dump .card-head { background: #f2f2f2; color: #0a0a0a; }
+[data-theme="panchiko"] .focus .card-head span, [data-theme="panchiko"] .dump .card-head span { color: rgba(0, 0, 0, .6); }
+/* Everything greyscale, emoji included (the theme's own colours are grey already) */
+[data-theme="panchiko"] .top, [data-theme="panchiko"] main, [data-theme="panchiko"] dialog,
+.theme-card[data-theme="panchiko"] { filter: grayscale(1); }
+[data-theme="panchiko"] .tabs { background: rgba(19, 19, 19, .85); border: 1px solid rgba(255, 255, 255, .5); border-radius: 0; }
 [data-theme="panchiko"] .tab { border-radius: 0; }
-[data-theme="panchiko"] .tab.active { background: #f4f1ea; color: #070b24; }
-[data-theme="panchiko"] .icon-btn { border-radius: 0; background: var(--card); border-color: rgba(244, 241, 234, .6); }
+[data-theme="panchiko"] .tab.active { background: #f2f2f2; color: #0a0a0a; }
+[data-theme="panchiko"] .icon-btn { border-radius: 0; background: var(--card); border-color: rgba(255, 255, 255, .6); }
 @media (max-width: 420px) {
   [data-theme="panchiko"] .top h1::after { font-size: .78rem; }
   [data-theme="panchiko"] .tab { font-size: .82rem; letter-spacing: .02em; padding: 8px 7px; }
