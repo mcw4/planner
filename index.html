@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Planner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="rainbow"></div>
+  <header class="top">
+    <h1>My Planner</h1>
+    <nav class="tabs" role="tablist">
+      <button class="tab active" data-view="today" role="tab">Today</button>
+      <button class="tab" data-view="week" role="tab">My Week</button>
+      <button class="tab" data-view="settings" role="tab">Settings</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- TODAY -->
+    <section id="view-today" class="view active">
+      <div class="date-bar">
+        <button class="icon-btn" id="prev-day" aria-label="Previous day">‹</button>
+        <div class="date-title">
+          <div id="date-label"></div>
+          <button class="link-btn" id="go-today" hidden>Back to today</button>
+        </div>
+        <button class="icon-btn" id="next-day" aria-label="Next day">›</button>
+      </div>
+      <div class="progress" id="checkin-progress"></div>
+
+      <div class="daily-grid">
+        <div class="col">
+          <div class="card focus">
+            <div class="card-head"><h2>Today's focus</h2></div>
+            <textarea id="focus" rows="3" placeholder="What's the one thing that would make today a win?"></textarea>
+          </div>
+
+          <div class="card list-card" data-list="priorities" data-color="purple">
+            <div class="card-head"><h2>Priorities</h2><span>Important stuff that must get done</span></div>
+            <ul class="todo"></ul>
+            <label class="reward">Reward <input type="text" placeholder="e.g. episode of my show"></label>
+          </div>
+
+          <div class="card list-card" data-list="later" data-color="pink">
+            <div class="card-head"><h2>Do later</h2><span>Could get done today</span></div>
+            <ul class="todo"></ul>
+            <label class="reward">Reward <input type="text"></label>
+          </div>
+
+          <div class="card list-card" data-list="other" data-color="blue">
+            <div class="card-head"><h2>Everything else</h2><span>Add everything else here</span></div>
+            <ul class="todo"></ul>
+            <label class="reward">Reward <input type="text"></label>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card habits">
+            <div class="card-head"><h2>Habits &amp; self care</h2><span>✓</span></div>
+            <ul id="habit-list"></ul>
+          </div>
+
+          <div class="card schedule">
+            <div class="card-head"><h2>Daily schedule</h2><span id="schedule-source"></span></div>
+            <ul id="schedule-list"></ul>
+            <div class="row-actions">
+              <button class="small-btn" id="add-oneoff">+ Add something just for today</button>
+              <button class="link-btn" id="reset-schedule" hidden>Reset to weekly routine</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-grid">
+        <div class="card dump">
+          <div class="card-head"><h2>Brain dump</h2><span>Free space to free your mind</span></div>
+          <textarea id="brain-dump" rows="6"></textarea>
+        </div>
+        <div class="card reflect">
+          <h3>Productivity</h3>
+          <div class="stars" id="productivity"></div>
+          <h3>Mood</h3>
+          <div class="moods" id="mood"></div>
+          <h3>Energy levels</h3>
+          <div class="energy" id="energy"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WEEK -->
+    <section id="view-week" class="view">
+      <div class="week-toolbar">
+        <p class="hint">Tap an empty slot to add something. Tap a block to change it. This is the plan that repeats every week.</p>
+        <div class="toolbar-btns">
+          <button class="small-btn" id="copy-day">Copy a day…</button>
+          <button class="small-btn" id="load-example">Load school-day example</button>
+        </div>
+      </div>
+      <div class="day-picker" id="day-picker"></div>
+      <div class="week-scroll">
+        <div class="week-grid" id="week-grid"></div>
+      </div>
+    </section>
+
+    <!-- SETTINGS -->
+    <section id="view-settings" class="view">
+      <div class="card">
+        <div class="card-head"><h2>Day hours</h2></div>
+        <div class="form-row">
+          <label>Week view starts <input type="time" id="set-start" step="1800"></label>
+          <label>and ends <input type="time" id="set-end" step="1800"></label>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><h2>Habits &amp; self care</h2><span>One per line</span></div>
+        <textarea id="set-habits" rows="6"></textarea>
+      </div>
+      <div class="card">
+        <div class="card-head"><h2>Back up</h2></div>
+        <p class="hint">Everything is saved in this browser only. Download a backup now and then, or to move to another device.</p>
+        <div class="form-row">
+          <button class="small-btn" id="export">Download backup</button>
+          <label class="small-btn file-btn">Restore backup <input type="file" id="import" accept="application/json" hidden></label>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Block editor -->
+  <dialog id="block-dialog">
+    <form method="dialog" id="block-form">
+      <h2 id="block-dialog-title">Add to routine</h2>
+      <label>What <input type="text" id="b-title" required placeholder="e.g. Get ready for school"></label>
+      <div class="form-row">
+        <label>From <input type="time" id="b-start" step="1800" required></label>
+        <label>To <input type="time" id="b-end" step="1800" required></label>
+      </div>
+      <label>Type <select id="b-cat"></select></label>
+      <label>Notes <textarea id="b-notes" rows="3" placeholder="e.g. school timetable: P1 Maths, P2 English…"></textarea></label>
+      <fieldset id="b-days-wrap">
+        <legend>Also put this on</legend>
+        <div id="b-days" class="chip-row"></div>
+      </fieldset>
+      <p class="error" id="b-error"></p>
+      <div class="dialog-btns">
+        <button type="button" class="danger-btn" id="b-delete">Delete</button>
+        <span class="spacer"></span>
+        <button type="button" class="small-btn" id="b-cancel">Cancel</button>
+        <button type="submit" class="primary-btn">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Copy day -->
+  <dialog id="copy-dialog">
+    <form method="dialog" id="copy-form">
+      <h2>Copy a day</h2>
+      <label>Copy <select id="copy-from"></select></label>
+      <fieldset>
+        <legend>onto (replaces what's there)</legend>
+        <div id="copy-to" class="chip-row"></div>
+      </fieldset>
+      <div class="dialog-btns">
+        <span class="spacer"></span>
+        <button type="button" class="small-btn" id="copy-cancel">Cancel</button>
+        <button type="submit" class="primary-btn">Copy</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="rainbow bottom"></div>
+  <script src="app.js"></script>
+</body>
+</html>
