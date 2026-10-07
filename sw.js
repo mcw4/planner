@@ -1,10 +1,11 @@
 // Service worker: lets the planner open offline and handles notification taps.
 // Network-first so updates pushed to GitHub Pages show up straight away when online.
-const CACHE = "planner-v1";
+const CACHE = "planner-v2";
 const SHELL = [
   "./",
   "index.html",
   "styles.css",
+  "themes.css",
   "app.js",
   "manifest.webmanifest",
   "icons/icon.svg",

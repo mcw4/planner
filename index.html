@@ -13,15 +13,19 @@
   <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Permanent+Marker&family=Bebas+Neue&family=Barlow:wght@400;600;700&family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Permanent+Marker&family=Bebas+Neue&family=Barlow:wght@400;600;700&family=Fredoka:wght@400;500;600&family=Caveat:wght@700&family=Baloo+2:wght@600;800&family=Special+Elite&family=Crimson+Pro:wght@400;600;700&family=Mochiy+Pop+One&family=Rubik+Dirt&family=Quicksand:wght@500;700&family=Orbitron:wght@600;700&family=Comfortaa:wght@500;700&family=Bitter:wght@500;700&family=Righteous&family=Press+Start+2P&family=Kalam:wght@400;700&family=Inter:wght@400;600;700&family=Chewy&family=Lora:wght@500;700&display=swap" rel="stylesheet">
   <script>
     // Apply the saved theme before first paint so the page doesn't flash the default.
     try {
-      var t = JSON.parse(localStorage.getItem("planner.v1")).settings.theme;
-      if (t) document.documentElement.dataset.theme = t;
+      var s = JSON.parse(localStorage.getItem("planner.v1")).settings;
+      if (s.theme) document.documentElement.dataset.theme = s.theme;
+      if (s.dark === "on" || (s.dark === "auto" && matchMedia("(prefers-color-scheme: dark)").matches)) {
+        document.documentElement.dataset.dark = "on";
+      }
     } catch (e) {}
   </script>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="themes.css">
 </head>
 <body>
   <div class="rainbow"></div>
@@ -150,7 +154,15 @@
     <section id="view-settings" class="view">
       <div class="card">
         <div class="card-head theme-head"><h2>Theme</h2><span>Pick your vibe</span></div>
-        <div class="theme-grid" id="theme-grid"></div>
+        <div class="dark-row">
+          <span>Dark mode</span>
+          <div class="segmented" id="dark-mode" role="radiogroup" aria-label="Dark mode">
+            <button type="button" data-dark="off" role="radio">Off</button>
+            <button type="button" data-dark="on" role="radio">On</button>
+            <button type="button" data-dark="auto" role="radio">Match my phone</button>
+          </div>
+        </div>
+        <div id="theme-grid"></div>
       </div>
       <div class="card">
         <div class="card-head install-head"><h2>Put it on your phone</h2></div>

@@ -17,13 +17,32 @@
   const LISTS = { priorities: 3, later: 3, other: 5 };
   // Colours, fonts and decorations live in styles.css under [data-theme="…"];
   // this holds the bits that are content rather than style.
+  // `star` is the productivity icon: one emoji, or five (one per level).
+  // `dark` marks themes that are dark already, so the dark-mode switch leaves them alone.
   const THEMES = {
-    pastel: { name: "Pastel", meta: "#dcc6f2", star: "⭐", moods: ["😢", "😕", "😐", "🙂", "😄"] },
-    rainbow: { name: "Rainbow", meta: "#ff9f1a", star: "🌟", moods: ["😢", "😕", "😐", "🙂", "🥳"] },
-    emo: { name: "Emo", meta: "#0d0d10", star: "💜", moods: ["💀", "😒", "😶", "🙂", "🤘"] },
-    sporty: { name: "Sporty", meta: "#13315c", star: "🔥", moods: ["😫", "😕", "😐", "😀", "💪"] },
-    cats: { name: "Cats", meta: "#ffe9ee", star: "🐾", moods: ["😿", "😾", "🐱", "😺", "😸"] },
+    pastel: { group: "Classic", name: "Pastel", meta: "#dcc6f2", star: "⭐", moods: ["😢", "😕", "😐", "🙂", "😄"] },
+    rainbow: { group: "Classic", name: "Rainbow", meta: "#ff9f1a", star: "🌟", moods: ["😢", "😕", "😐", "🙂", "🥳"] },
+    minimal: { group: "Classic", name: "Minimal", meta: "#ffffff", star: "⭐", moods: ["😞", "🙁", "😐", "🙂", "😄"] },
+    cottagecore: { group: "Aesthetic", name: "Cottagecore", meta: "#f6dfe0", star: "🌸", moods: ["🥀", "😔", "🌿", "🌼", "🌻"] },
+    y2k: { group: "Aesthetic", name: "Y2K", meta: "#ffd6f0", star: "💿", moods: ["😭", "🙄", "😐", "😊", "💅"] },
+    academia: { group: "Aesthetic", name: "Dark Academia", meta: "#7b2d26", star: "🕯️", moods: ["😩", "😔", "😐", "🙂", "😌"] },
+    kawaii: { group: "Aesthetic", name: "Kawaii", meta: "#ffd9ea", star: "🍓", moods: ["😢", "🥺", "😶", "😊", "🥰"] },
+    emo: { group: "Aesthetic", name: "Emo", meta: "#0d0d10", star: "💜", moods: ["💀", "😒", "😶", "🙂", "🤘"], dark: true },
+    grunge: { group: "Aesthetic", name: "Grunge", meta: "#23241d", star: "⚡", moods: ["😵", "😒", "😐", "🙂", "🤘"], dark: true },
+    ocean: { group: "Nature", name: "Ocean", meta: "#bfeaf2", star: "🐚", moods: ["🌧️", "🌥️", "⛅", "🌤️", "🐬"] },
+    space: { group: "Nature", name: "Space", meta: "#0b0a1f", star: "⭐", moods: ["🌑", "🌒", "🌓", "🌔", "🌕"], dark: true },
+    sunset: { group: "Nature", name: "Sunset", meta: "#ff9671", star: "☀️", moods: ["🌧️", "😕", "😐", "🙂", "😎"] },
+    forest: { group: "Nature", name: "Forest", meta: "#2f6b3a", star: ["🌱", "🌿", "☘️", "🪴", "🌳"], moods: ["🥀", "🍂", "🍃", "🌿", "🌻"] },
+    sporty: { group: "Interests", name: "Sporty", meta: "#13315c", star: "🔥", moods: ["😫", "😕", "😐", "😀", "💪"] },
+    music: { group: "Interests", name: "Music", meta: "#111114", star: "💚", moods: ["😖", "😕", "😐", "🙂", "🤩"], dark: true },
+    gaming: { group: "Interests", name: "Gaming", meta: "#1d2b53", star: "❤️", moods: ["💀", "😵", "😐", "😀", "🏆"], dark: true },
+    art: { group: "Interests", name: "Art", meta: "#fffdf8", star: "🖌️", moods: ["😢", "😕", "😐", "🙂", "🤩"] },
+    cats: { group: "Animals", name: "Cats", meta: "#ffe9ee", star: "🐾", moods: ["😿", "😾", "🐱", "😺", "😸"] },
+    dogs: { group: "Animals", name: "Dogs", meta: "#d64545", star: "🦴", moods: ["😢", "😕", "😐", "🙂", "🐶"] },
+    horses: { group: "Animals", name: "Horses", meta: "#9a5b2c", star: "🐎", moods: ["😢", "😕", "😐", "🙂", "🐴"] },
+    frogs: { group: "Animals", name: "Frogs", meta: "#7cc35f", star: "🪷", moods: ["😢", "😕", "😐", "🙂", "🐸"] },
   };
+  const starIcon = (t, i) => (Array.isArray(t.star) ? t.star[i] : t.star);
 
   const defaultState = () => ({
     settings: {
@@ -31,6 +50,7 @@
       dayEnd: "22:30",
       habits: ["Drink water", "Move my body", "Read for 20 minutes", "Screen-free hour before bed"],
       theme: "pastel",
+      dark: "off",
       reminders: {
         morning: { on: true, time: "07:00" },
         evening: { on: true, time: "20:30" },
@@ -269,7 +289,7 @@
       }));
     };
     const t = currentTheme();
-    rating($("#productivity"), "productivity", 5, () => t.star);
+    rating($("#productivity"), "productivity", 5, (i) => starIcon(t, i));
     rating($("#mood"), "mood", 5, (i) => t.moods[i]);
     rating($("#energy"), "energy", 5, () => "");
   }
@@ -517,19 +537,35 @@
   // ---------- Themes ----------
   const currentTheme = () => THEMES[state.settings.theme] || THEMES.pastel;
 
+  const darkQuery = matchMedia("(prefers-color-scheme: dark)");
+  const darkOn = () => state.settings.dark === "on" || (state.settings.dark === "auto" && darkQuery.matches);
+
   function applyTheme() {
     const key = THEMES[state.settings.theme] ? state.settings.theme : "pastel";
-    document.documentElement.dataset.theme = key;
-    $('meta[name="theme-color"]').setAttribute("content", THEMES[key].meta);
+    const root = document.documentElement;
+    root.dataset.theme = key;
+    if (darkOn()) root.dataset.dark = "on"; else delete root.dataset.dark;
+    const meta = darkOn() && !THEMES[key].dark ? "#121216" : THEMES[key].meta;
+    $('meta[name="theme-color"]').setAttribute("content", meta);
   }
+  darkQuery.addEventListener("change", () => { if (state.settings.dark === "auto") applyTheme(); });
+
+  $$("#dark-mode button").forEach((b) => b.addEventListener("click", () => {
+    state.settings.dark = b.dataset.dark;
+    save();
+    applyTheme();
+    renderThemePicker();
+  }));
 
   function renderThemePicker() {
+    $$("#dark-mode button").forEach((b) => b.setAttribute("aria-checked", String(b.dataset.dark === (state.settings.dark || "off"))));
+    const current = THEMES[state.settings.theme] ? state.settings.theme : "pastel";
     const dots = ["--purple-ink", "--pink-ink", "--blue-ink", "--green-ink", "--peach-ink"];
-    $("#theme-grid").replaceChildren(...Object.entries(THEMES).map(([key, t]) => el("button", {
+    const card = ([key, t]) => el("button", {
       type: "button",
-      class: `theme-card${key === (state.settings.theme || "pastel") ? " selected" : ""}`,
+      class: `theme-card${key === current ? " selected" : ""}`,
       "data-theme": key,
-      "aria-pressed": String(key === state.settings.theme),
+      "aria-pressed": String(key === current),
       onclick: () => {
         state.settings.theme = key;
         save();
@@ -541,7 +577,13 @@
     el("div", { class: "tc-stripe" }),
     el("div", { class: "tc-body" },
       el("span", { class: "tc-name", text: t.name }),
-      el("div", { class: "tc-dots" }, dots.map((v) => el("span", { style: `background:var(${v})` })))))));
+      el("div", { class: "tc-dots" }, dots.map((v) => el("span", { style: `background:var(${v})` })))));
+
+    const groups = [...new Set(Object.values(THEMES).map((t) => t.group))];
+    $("#theme-grid").replaceChildren(...groups.flatMap((g) => [
+      el("h3", { class: "theme-group", text: g }),
+      el("div", { class: "theme-grid" }, Object.entries(THEMES).filter(([, t]) => t.group === g).map(card)),
+    ]));
   }
   const roundToSlot = (t) => fromMin(Math.round(toMin(t) / 30) * 30);
   $("#set-start").addEventListener("change", (e) => { if (e.target.value) { state.settings.dayStart = roundToSlot(e.target.value); save(); } });
@@ -968,7 +1010,7 @@
     })));
     const prodRow = el("tr", {}, el("th", { scope: "row", text: "Productivity" }), week.map((w) => cell(w, (day) => {
       const p = day?.productivity || 0;
-      return el("td", { title: p ? `Productivity ${p}/5` : "Not recorded" }, p ? el("span", { class: "score" }, el("span", { class: "score-icon", text: t.star }), `${p}`) : el("span", { class: "dash", text: "·" }));
+      return el("td", { title: p ? `Productivity ${p}/5` : "Not recorded" }, p ? el("span", { class: "score" }, el("span", { class: "score-icon", text: starIcon(t, p - 1) }), `${p}`) : el("span", { class: "dash", text: "·" }));
     })));
     const energyRow = el("tr", {}, el("th", { scope: "row", text: "Energy" }), week.map((w) => cell(w, (day) => {
       const e = day?.energy || 0;

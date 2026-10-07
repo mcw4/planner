@@ -1,0 +1,564 @@
+/* =========================================================
+   THEMES
+   Each theme only swaps tokens, so every screen follows along.
+   Selectors are attribute-based (not :root) so the theme picker
+   can preview a theme on just its own swatch.
+   ========================================================= */
+
+[data-theme="rainbow"] {
+  --ink: #2a2440;
+  --muted: #6f6a85;
+  --line: #ece8f5;
+  --bg: #fffdfb;
+  --card: #ffffff;
+  --purple: #e2ccff; --purple-ink: #8b3dff;
+  --pink: #ffc9dc;   --pink-ink: #ff3d8b;
+  --blue: #bfe6ff;   --blue-ink: #1597e5;
+  --green: #c4f2cd;  --green-ink: #1fae4b;
+  --peach: #ffd6ad;  --peach-ink: #ff7a00;
+  --yellow: #fff1a8; --yellow-ink: #d9a400;
+  --grey: #f1eef8;   --grey-ink: #6f6a85;
+  --accent: #ff3d8b;
+  --stripe: linear-gradient(90deg, #ff4d4d, #ff9f1a, #ffd93d, #3ddc84, #2bb3ff, #8b5cff, #ff4dc4);
+  --stripe-h: 12px;
+  --progress: linear-gradient(90deg, #ff4d4d, #ff9f1a, #ffd93d, #3ddc84, #2bb3ff, #8b5cff);
+  --now: #fff7cc;
+  --slot-hover: #fbf3ff;
+  --pattern: radial-gradient(circle at 0% 0%, #ffe3ec 0, transparent 40%), radial-gradient(circle at 100% 30%, #e3f4ff 0, transparent 40%), radial-gradient(circle at 30% 100%, #f1ffe3 0, transparent 45%);
+  --deco: "🌈 ";
+  --radius: 16px;
+}
+[data-theme="rainbow"] .top h1 {
+  background: linear-gradient(90deg, #ff4d4d, #ff9f1a, #e6b800, #1fae4b, #1597e5, #8b3dff);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+[data-theme="rainbow"] .top h1::before { -webkit-text-fill-color: initial; color: initial; }
+[data-theme="rainbow"] .card { box-shadow: 0 4px 0 var(--line); }
+
+[data-theme="emo"] {
+  --ink: #ecebf0;
+  --muted: #9a98a6;
+  --line: #2e2d36;
+  --bg: #0d0d10;
+  --card: #17171c;
+  --purple: #33204a; --purple-ink: #c77dff;
+  --pink: #4a1530;   --pink-ink: #ff4f9a;
+  --blue: #172a3a;   --blue-ink: #5ab8ff;
+  --green: #1c2e22;  --green-ink: #6fd889;
+  --peach: #3a2216;  --peach-ink: #ff8a4c;
+  --yellow: #33301a; --yellow-ink: #f4d35e;
+  --grey: #24242b;   --grey-ink: #9a98a6;
+  --field: #101014;
+  --accent: #ff2e88;
+  --on-accent: #0d0d10;
+  --stripe: repeating-conic-gradient(#ecebf0 0 25%, #0d0d10 0 50%) 0 0 / 12px 12px;
+  --stripe-h: 12px;
+  --progress: linear-gradient(90deg, #8a2be2, #ff2e88);
+  --now: #2a1225;
+  --slot-line: #212128;
+  --slot-hover: #221a2a;
+  --pattern: repeating-linear-gradient(45deg, transparent 0 22px, rgba(255,255,255,.025) 22px 24px);
+  --head-font: "Permanent Marker", "Nunito", cursive;
+  --head-weight: 400;
+  --deco: "💔 ";
+  --radius: 4px;
+  color-scheme: dark;
+}
+[data-theme="emo"] .card { border-color: #34333d; box-shadow: 3px 3px 0 #000; }
+[data-theme="emo"] .tab.active { box-shadow: 0 0 0 1px var(--accent); }
+[data-theme="emo"] dialog::backdrop { background: rgba(0, 0, 0, .7); }
+
+[data-theme="sporty"] {
+  --ink: #0d1b2a;
+  --muted: #5b6b7d;
+  --line: #d9e1ea;
+  --bg: #eef2f7;
+  --card: #ffffff;
+  --purple: #dbe6ff; --purple-ink: #1d4ed8;
+  --pink: #ffe0d3;   --pink-ink: #ff5a1f;
+  --blue: #d4f1ff;   --blue-ink: #0284c7;
+  --green: #e2f8c4;  --green-ink: #4d8f00;
+  --peach: #ffeac2;  --peach-ink: #e88a00;
+  --yellow: #f6ffb3; --yellow-ink: #8a9a00;
+  --grey: #e4e9f0;   --grey-ink: #475569;
+  --accent: #ff5a1f;
+  --stripe: repeating-linear-gradient(135deg, #13315c 0 16px, #ff5a1f 16px 24px, #c6f432 24px 30px);
+  --stripe-h: 12px;
+  --progress: linear-gradient(90deg, #c6f432, #ff5a1f);
+  --now: #f2ffd1;
+  --slot-line: #e7ecf2;
+  --slot-hover: #eef6ff;
+  --body-font: "Barlow", "Nunito", system-ui, sans-serif;
+  --head-font: "Bebas Neue", "Barlow", sans-serif;
+  --head-weight: 400;
+  --head-case: uppercase;
+  --head-spacing: .04em;
+  --deco: "⚡ ";
+  --radius: 4px;
+}
+[data-theme="sporty"] .top h1 { font-size: 2.4rem; }
+[data-theme="sporty"] .card-head h2 { font-size: 1.35rem; }
+[data-theme="sporty"] .card { border-width: 0 0 0 5px; border-left-color: #13315c; box-shadow: 0 2px 6px rgba(13, 27, 42, .08); }
+[data-theme="sporty"] .card-head { border-radius: 0; }
+[data-theme="sporty"] .tabs { border-radius: 4px; background: #13315c; }
+[data-theme="sporty"] .tab { border-radius: 3px; color: #b9c6d8; font-size: 1.15rem; }
+[data-theme="sporty"] .tab.active { background: #c6f432; color: #0d1b2a; }
+
+[data-theme="cats"] {
+  --ink: #4a3b35;
+  --muted: #9a8478;
+  --line: #f0e2d6;
+  --bg: #fff8f1;
+  --card: #fffdfa;
+  --purple: #efe0f5; --purple-ink: #a466c4;
+  --pink: #ffdfe5;   --pink-ink: #e86a8a;
+  --blue: #dceff5;   --blue-ink: #4f9fb8;
+  --green: #e5f0dc;  --green-ink: #6a9a4c;
+  --peach: #ffe4cc;  --peach-ink: #e08a3c;
+  --yellow: #fff1c9; --yellow-ink: #c99a1e;
+  --grey: #f4ebe4;   --grey-ink: #8a7468;
+  --accent: #e86a8a;
+  --stripe: radial-gradient(circle, #f6b8c6 3px, transparent 3.5px) 0 0 / 14px 10px, #ffe9ee;
+  --stripe-h: 10px;
+  --progress: linear-gradient(90deg, #f6b8c6, #e86a8a);
+  --now: #fff3e0;
+  --slot-line: #f6ece4;
+  --slot-hover: #fff0f3;
+  --pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='%23f6e3d6'%3E%3Cg transform='translate(18 22) rotate(-18)'%3E%3Cellipse cx='12' cy='19' rx='9' ry='7'/%3E%3Ccircle cx='2' cy='9' r='3.4'/%3E%3Ccircle cx='8.5' cy='3' r='3.4'/%3E%3Ccircle cx='15.5' cy='3' r='3.4'/%3E%3Ccircle cx='22' cy='9' r='3.4'/%3E%3C/g%3E%3Cg transform='translate(88 84) rotate(22)'%3E%3Cellipse cx='12' cy='19' rx='9' ry='7'/%3E%3Ccircle cx='2' cy='9' r='3.4'/%3E%3Ccircle cx='8.5' cy='3' r='3.4'/%3E%3Ccircle cx='15.5' cy='3' r='3.4'/%3E%3Ccircle cx='22' cy='9' r='3.4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  --body-font: "Fredoka", "Nunito", system-ui, sans-serif;
+  --head-font: "Fredoka", "Nunito", system-ui, sans-serif;
+  --head-weight: 600;
+  --deco: "🐱 ";
+  --radius: 18px;
+}
+/* Cat ears on every card */
+[data-theme="cats"] main .card { position: relative; margin-top: 22px; }
+[data-theme="cats"] main .card::before,
+[data-theme="cats"] main .card::after {
+  content: ""; position: absolute; top: -19px; width: 34px; height: 24px;
+  background: #efc2a8; clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+[data-theme="cats"] main .card::before { left: 18px; transform: rotate(-14deg); }
+[data-theme="cats"] main .card::after { left: 62px; transform: rotate(14deg); }
+
+/* ---------------- Aesthetics ---------------- */
+
+[data-theme="cottagecore"] {
+  --ink: #3f3a32; --muted: #8a8172; --line: #e9e1cf; --bg: #fbf7ee; --card: #fffdf7;
+  --purple: #ece3f1; --purple-ink: #8e6fa3;
+  --pink: #f6dfe0;   --pink-ink: #c4707b;
+  --blue: #dde9ea;   --blue-ink: #5f8f95;
+  --green: #e1ead6;  --green-ink: #6d8a55;
+  --peach: #f6e5d3;  --peach-ink: #c08354;
+  --yellow: #f7efcf; --yellow-ink: #b39433;
+  --grey: #efe9dc;   --grey-ink: #857b6c;
+  --accent: #c4707b;
+  --stripe: linear-gradient(90deg, rgba(214,140,150,.45) 50%, transparent 0) 0 0 / 16px 16px, linear-gradient(rgba(214,140,150,.45) 50%, transparent 0) 0 0 / 16px 16px, #fff;
+  --stripe-h: 16px;
+  --progress: linear-gradient(90deg, #a9bf8e, #d99aa3);
+  --now: #f7efd5; --slot-line: #f1ead9; --slot-hover: #f7f0f2;
+  --pattern: radial-gradient(circle, #efe3cc 1.5px, transparent 2px) 0 0 / 26px 26px;
+  --head-font: "Caveat", cursive; --head-weight: 700;
+  --deco: "🍄 "; --radius: 12px;
+}
+[data-theme="cottagecore"] .card-head h2, .theme-card[data-theme="cottagecore"] .tc-name { font-size: 1.45rem; }
+[data-theme="cottagecore"] .top h1 { font-size: 2.3rem; }
+[data-theme="cottagecore"] #date-label { font-size: 1.7rem; }
+
+[data-theme="y2k"] {
+  --ink: #3a2a4d; --muted: #8b7a9e; --line: #eadcf5; --bg: #fdf3ff; --card: #ffffff;
+  --purple: #ead9ff; --purple-ink: #9a5cff;
+  --pink: #ffd6f0;   --pink-ink: #ff3fae;
+  --blue: #d7ecff;   --blue-ink: #3d8bff;
+  --green: #d6fbef;  --green-ink: #12b886;
+  --peach: #ffe2f1;  --peach-ink: #e64fa0;
+  --yellow: #fff4c7; --yellow-ink: #d4a20b;
+  --grey: #f1ebf7;   --grey-ink: #8b7a9e;
+  --accent: #ff3fae;
+  --stripe: linear-gradient(90deg, #c9c9d6, #ffffff 20%, #b7b7c6 40%, #f7f7fb 60%, #c4c4d2 80%, #ffffff);
+  --stripe-h: 12px;
+  --progress: linear-gradient(90deg, #b9a7ff, #ff8fd2, #8fd3ff);
+  --now: #fff0fa; --slot-hover: #fbefff;
+  --pattern: radial-gradient(circle at 20% 20%, #ffd6f0 0, transparent 35%), radial-gradient(circle at 85% 15%, #d7ecff 0, transparent 35%), radial-gradient(circle at 60% 90%, #ead9ff 0, transparent 40%);
+  --head-font: "Baloo 2", "Nunito", sans-serif; --head-weight: 800;
+  --deco: "✨ "; --radius: 22px;
+}
+[data-theme="y2k"] .card { box-shadow: inset 0 2px 0 #fff, 0 6px 18px rgba(154, 92, 255, .15); border-color: #e3d3f7; }
+[data-theme="y2k"] .primary-btn { background: linear-gradient(180deg, #ff7cc8, #ff3fae); }
+
+[data-theme="academia"] {
+  --ink: #2e211a; --muted: #7b6a5c; --line: #ddd0b8; --bg: #efe6d2; --card: #faf5e8;
+  --purple: #e6d6d3; --purple-ink: #7b2d26;
+  --pink: #ead6cd;   --pink-ink: #9c4a3a;
+  --blue: #d7dde3;   --blue-ink: #2c3e50;
+  --green: #d9e0d2;  --green-ink: #3d5a40;
+  --peach: #eddcc3;  --peach-ink: #8a5a2b;
+  --yellow: #ede1bd; --yellow-ink: #8f6d1f;
+  --grey: #e7dcc7;   --grey-ink: #6e5d4f;
+  --field: #fffbf1;
+  --accent: #7b2d26;
+  --stripe: repeating-linear-gradient(90deg, #7b2d26 0 18px, #3d5a40 18px 30px, #b8862b 30px 36px, #2c3e50 36px 52px, #5a3a28 52px 62px);
+  --stripe-h: 14px;
+  --progress: linear-gradient(90deg, #b8862b, #7b2d26);
+  --now: #f3e7c7; --slot-line: #ebe1cc; --slot-hover: #f1e6d6;
+  --body-font: "Crimson Pro", Georgia, serif;
+  --head-font: "Special Elite", "Courier New", monospace; --head-weight: 400;
+  --deco: "📚 "; --radius: 3px;
+}
+[data-theme="academia"] body { font-size: 1.08rem; }
+[data-theme="academia"] .card { box-shadow: 2px 2px 0 #d8caae; }
+
+[data-theme="kawaii"] {
+  --ink: #4b3550; --muted: #9a84a0; --line: #f6e1ef; --bg: #fff6fb; --card: #ffffff;
+  --purple: #ecdcff; --purple-ink: #a565ff;
+  --pink: #ffd9ea;   --pink-ink: #ff6fae;
+  --blue: #d4f4ff;   --blue-ink: #2fb4e0;
+  --green: #d3f7ea;  --green-ink: #2bb88a;
+  --peach: #ffe5d4;  --peach-ink: #ff8a5c;
+  --yellow: #fff6bf; --yellow-ink: #d9a900;
+  --grey: #f6eef4;   --grey-ink: #9a84a0;
+  --accent: #ff6fae;
+  --stripe: repeating-linear-gradient(90deg, #ffb3d4 0 20px, #fff3a3 20px 40px, #b8f2e6 40px 60px, #e3c8ff 60px 80px);
+  --stripe-h: 10px;
+  --progress: linear-gradient(90deg, #b8f2e6, #ffb3d4);
+  --now: #fff7d6; --slot-hover: #fff0f7;
+  --pattern: radial-gradient(circle, #ffe3f0 2px, transparent 2.5px) 0 0 / 22px 22px;
+  --head-font: "Mochiy Pop One", "Nunito", sans-serif; --head-weight: 400;
+  --deco: "🍡 "; --radius: 20px;
+}
+[data-theme="kawaii"] main .card { position: relative; }
+[data-theme="kawaii"] main .card::after {
+  content: "◕ᴗ◕"; position: absolute; right: 12px; bottom: 6px;
+  font-size: .75rem; color: var(--pink-ink); opacity: .7; pointer-events: none;
+}
+
+[data-theme="grunge"] {
+  --ink: #e6e1d3; --muted: #a8a28f; --line: #45463a; --bg: #23241d; --card: #2f3028;
+  --purple: #3c3a4a; --purple-ink: #a79bd8;
+  --pink: #4a2d26;   --pink-ink: #e0775f;
+  --blue: #2c3846;   --blue-ink: #7f9fc4;
+  --green: #353d26;  --green-ink: #a3b46f;
+  --peach: #4a3420;  --peach-ink: #e09a4f;
+  --yellow: #463d1f; --yellow-ink: #dbb44a;
+  --grey: #393a31;   --grey-ink: #a8a28f;
+  --field: #26271f;
+  --accent: #c8553d; --on-accent: #fff6ea;
+  --stripe: linear-gradient(135deg, #23241d 25%, transparent 25%) -8px 0 / 16px 16px, linear-gradient(225deg, #23241d 25%, transparent 25%) -8px 0 / 16px 16px, #c8553d;
+  --stripe-h: 12px;
+  --progress: linear-gradient(90deg, #4f6d8f, #8a9a5b, #c8553d);
+  --now: #3e3420; --slot-line: #36372e; --slot-hover: #36372e;
+  --pattern: repeating-linear-gradient(0deg, rgba(255,255,255,.015) 0 2px, transparent 2px 5px);
+  --head-font: "Rubik Dirt", "Bebas Neue", sans-serif; --head-weight: 400;
+  --deco: "🎸 "; --radius: 2px;
+  color-scheme: dark;
+}
+[data-theme="grunge"] .card { box-shadow: 4px 4px 0 #15160f; }
+
+/* ---------------- Nature & calm ---------------- */
+
+[data-theme="ocean"] {
+  --ink: #12324a; --muted: #5d7a8c; --line: #d3e8ee; --bg: #eff9fb; --card: #ffffff;
+  --purple: #dfe3fb; --purple-ink: #5868d6;
+  --pink: #ffe0da;   --pink-ink: #f0645a;
+  --blue: #d2f0f6;   --blue-ink: #0f8fa8;
+  --green: #d3f3ea;  --green-ink: #169c80;
+  --peach: #ffe7d3;  --peach-ink: #e98a3d;
+  --yellow: #fdf3cc; --yellow-ink: #c49a1a;
+  --grey: #e5f0f3;   --grey-ink: #5d7a8c;
+  --accent: #0f8fa8;
+  --stripe: radial-gradient(circle at 10px -3px, transparent 11px, #2bb3c8 12px) 0 0 / 20px 12px, #bfeaf2;
+  --stripe-h: 12px;
+  --progress: linear-gradient(90deg, #7fd6e3, #123e6b);
+  --now: #e3f7fb; --slot-line: #e3f1f4; --slot-hover: #e8f7fa;
+  --pattern: radial-gradient(circle at 30% 40%, rgba(15,143,168,.07) 6px, transparent 7px) 0 0 / 90px 90px, radial-gradient(circle at 70% 75%, rgba(15,143,168,.06) 4px, transparent 5px) 0 0 / 70px 70px, linear-gradient(180deg, #eff9fb, #dff2f7);
+  --head-font: "Quicksand", "Nunito", sans-serif; --head-weight: 700;
+  --deco: "🌊 "; --radius: 14px;
+}
+
+[data-theme="space"] {
+  --ink: #ecebff; --muted: #a3a1c9; --line: #2c2a5a; --bg: #0b0a1f; --card: #15143a;
+  --purple: #2c2163; --purple-ink: #b28dff;
+  --pink: #47184a;   --pink-ink: #ff5cf4;
+  --blue: #13305a;   --blue-ink: #4cc9f0;
+  --green: #123d3d;  --green-ink: #5dfdcb;
+  --peach: #452a24;  --peach-ink: #ff9f6b;
+  --yellow: #3f3a1a; --yellow-ink: #ffe066;
+  --grey: #201f48;   --grey-ink: #a3a1c9;
+  --field: #0f0e2a;
+  --accent: #7cf7ff; --on-accent: #0b0a1f;
+  --stripe: linear-gradient(90deg, #3a0ca3, #7209b7, #f72585, #4cc9f0);
+  --stripe-h: 8px;
+  --progress: linear-gradient(90deg, #4cc9f0, #f72585);
+  --now: #241c4f; --slot-line: #1d1c47; --slot-hover: #1f1d4a;
+  --pattern: radial-gradient(1px 1px at 20px 30px, #fff, transparent), radial-gradient(1px 1px at 80px 120px, #cfd8ff, transparent), radial-gradient(1.5px 1.5px at 150px 60px, #fff, transparent), radial-gradient(1px 1px at 200px 170px, #ffd6fb, transparent), radial-gradient(1px 1px at 120px 200px, #fff, transparent);
+  --head-font: "Orbitron", "Nunito", sans-serif; --head-weight: 700; --head-spacing: .03em;
+  --deco: "🪐 "; --radius: 10px;
+  color-scheme: dark;
+}
+[data-theme="space"] body { background-size: 230px 230px, 230px 230px, 230px 230px, 230px 230px, 230px 230px, auto; }
+[data-theme="space"] .card { box-shadow: 0 0 0 1px #2c2a5a, 0 0 18px rgba(124, 247, 255, .06); }
+[data-theme="space"] .tab { font-family: var(--body-font); }
+[data-theme="space"] .card-head h2 { font-size: .95rem; }
+
+[data-theme="sunset"] {
+  --ink: #3d2440; --muted: #8d6d86; --line: #f6dcdc; --bg: #fff3ea; --card: #fffaf6;
+  --purple: #eadcf5; --purple-ink: #845ec2;
+  --pink: #ffd9e3;   --pink-ink: #e6537a;
+  --blue: #dfe2f7;   --blue-ink: #5a6ac4;
+  --green: #e6f0d8;  --green-ink: #6c9a3e;
+  --peach: #ffe0cf;  --peach-ink: #f0743f;
+  --yellow: #ffefc4; --yellow-ink: #d99a00;
+  --grey: #f6e9e6;   --grey-ink: #8d6d86;
+  --accent: #e6537a;
+  --stripe: linear-gradient(90deg, #ffc75f, #ff9671, #ff6f91, #d65db1, #845ec2);
+  --stripe-h: 10px;
+  --progress: linear-gradient(90deg, #ffc75f, #ff6f91, #845ec2);
+  --now: #fff0dc; --slot-hover: #fff0f2;
+  --pattern: linear-gradient(180deg, #fff3ea 0%, #ffe9ef 60%, #f3e6fb 100%);
+  --head-font: "Comfortaa", "Nunito", sans-serif; --head-weight: 700;
+  --deco: "🌅 "; --radius: 16px;
+}
+
+[data-theme="forest"] {
+  --ink: #23301f; --muted: #6e7b66; --line: #dde5d4; --bg: #f3f6ee; --card: #fdfefb;
+  --purple: #e4e0ef; --purple-ink: #6b5b9a;
+  --pink: #f4ddd3;   --pink-ink: #c46a3c;
+  --blue: #d8e7ea;   --blue-ink: #3e7c8a;
+  --green: #dbead4;  --green-ink: #2f6b3a;
+  --peach: #f0e1cc;  --peach-ink: #a8692f;
+  --yellow: #eef0cc; --yellow-ink: #8a8a1f;
+  --grey: #e7ebe1;   --grey-ink: #6e7b66;
+  --accent: #2f6b3a;
+  --stripe: repeating-linear-gradient(90deg, #2f6b3a 0 12px, #4f8f4a 12px 24px, #8bbf6a 24px 32px, #c46a3c 32px 36px);
+  --stripe-h: 10px;
+  --progress: linear-gradient(90deg, #8bbf6a, #2f6b3a);
+  --now: #f1f5dc; --slot-line: #e8eee1; --slot-hover: #edf4e6;
+  --head-font: "Bitter", Georgia, serif; --head-weight: 700;
+  --deco: "🌿 "; --radius: 10px;
+}
+
+/* ---------------- Interests ---------------- */
+
+[data-theme="music"] {
+  --ink: #f1f1f5; --muted: #a2a2b2; --line: #2e2e38; --bg: #111114; --card: #1b1b21;
+  --purple: #2f2142; --purple-ink: #c77dff;
+  --pink: #401a33;   --pink-ink: #ff3ea5;
+  --blue: #143338;   --blue-ink: #2de2e6;
+  --green: #163a26;  --green-ink: #39ff88;
+  --peach: #40291a;  --peach-ink: #ff9e3d;
+  --yellow: #3d3618; --yellow-ink: #ffd23f;
+  --grey: #26262e;   --grey-ink: #a2a2b2;
+  --field: #141418;
+  --accent: #39ff88; --on-accent: #111114;
+  --stripe: repeating-linear-gradient(90deg, #39ff88 0 5px, #111114 5px 8px, #2de2e6 8px 13px, #111114 13px 16px, #ff3ea5 16px 21px, #111114 21px 24px, #ffd23f 24px 29px, #111114 29px 32px);
+  --stripe-h: 10px;
+  --progress: linear-gradient(90deg, #39ff88, #ffd23f, #ff3ea5);
+  --now: #1f2a22; --slot-line: #222229; --slot-hover: #24242c;
+  --pattern: repeating-radial-gradient(circle at 100% 0, transparent 0 14px, rgba(255,255,255,.018) 14px 15px);
+  --head-font: "Righteous", "Nunito", sans-serif; --head-weight: 400;
+  --deco: "🎧 "; --radius: 12px;
+  color-scheme: dark;
+}
+/* Energy shown as rising volume bars */
+[data-theme="music"] .energy { align-items: flex-end; height: 34px; }
+[data-theme="music"] .energy button { max-width: 16px; border-radius: 3px; }
+[data-theme="music"] .energy button:nth-child(1) { height: 10px; }
+[data-theme="music"] .energy button:nth-child(2) { height: 16px; }
+[data-theme="music"] .energy button:nth-child(3) { height: 22px; }
+[data-theme="music"] .energy button:nth-child(4) { height: 28px; }
+[data-theme="music"] .energy button:nth-child(5) { height: 34px; }
+[data-theme="music"] .mini-energy { align-items: flex-end; }
+[data-theme="music"] .mini-energy i:nth-child(1) { height: 5px; }
+[data-theme="music"] .mini-energy i:nth-child(2) { height: 8px; }
+[data-theme="music"] .mini-energy i:nth-child(3) { height: 11px; }
+[data-theme="music"] .mini-energy i:nth-child(5) { height: 17px; }
+
+[data-theme="gaming"] {
+  --ink: #fff1e8; --muted: #a8b0d0; --line: #3b4787; --bg: #1d2b53; --card: #263572;
+  --purple: #3d3478; --purple-ink: #c9a7ff;
+  --pink: #5a2a5a;   --pink-ink: #ff77a8;
+  --blue: #1f4a86;   --blue-ink: #29adff;
+  --green: #1d5a4a;  --green-ink: #00e436;
+  --peach: #5a3a2a;  --peach-ink: #ffa300;
+  --yellow: #55502a; --yellow-ink: #ffec27;
+  --grey: #2f3d7a;   --grey-ink: #a8b0d0;
+  --field: #1a2650;
+  --accent: #ff004d; --on-accent: #fff1e8;
+  --stripe: repeating-linear-gradient(90deg, #ff004d 0 12px, #ffa300 12px 24px, #ffec27 24px 36px, #00e436 36px 48px, #29adff 48px 60px, #ff77a8 60px 72px);
+  --stripe-h: 12px;
+  --progress: repeating-linear-gradient(90deg, #00e436 0 14px, transparent 14px 17px);
+  --now: #3a3a6a; --slot-line: #2c3a75; --slot-hover: #2d3b7a;
+  --head-font: "Press Start 2P", monospace; --head-weight: 400;
+  --deco: "🎮 "; --radius: 0;
+  color-scheme: dark;
+}
+[data-theme="gaming"] .card { box-shadow: 4px 4px 0 #0f1838; border-width: 2px; }
+[data-theme="gaming"] .top h1 { font-size: 1.15rem; }
+[data-theme="gaming"] .card-head h2 { font-size: .72rem; line-height: 1.6; }
+[data-theme="gaming"] #date-label, [data-theme="gaming"] #week-label { font-size: .8rem; line-height: 1.6; }
+[data-theme="gaming"] .col-head, [data-theme="gaming"] .reflect h3 { font-size: .6rem; }
+[data-theme="gaming"] .tab { font-family: var(--body-font); }
+.theme-card[data-theme="gaming"] .tc-name { font-size: .7rem; line-height: 1.6; }
+[data-theme="gaming"] .progress .bar { border-radius: 0; }
+@media (max-width: 420px) {
+  [data-theme="gaming"] #date-label, [data-theme="gaming"] #week-label { font-size: .68rem; }
+  [data-theme="space"] .top h1 { font-size: 1.5rem; }
+}
+
+[data-theme="art"] {
+  --ink: #2b2b2b; --muted: #777; --line: #ece6dc; --bg: #fffdf8; --card: #ffffff;
+  --purple: #e9dcfb; --purple-ink: #9b5de5;
+  --pink: #fbd9dc;   --pink-ink: #e63946;
+  --blue: #d6e6f2;   --blue-ink: #457b9d;
+  --green: #d3eeea;  --green-ink: #2a9d8f;
+  --peach: #fde3d2;  --peach-ink: #f4a261;
+  --yellow: #fbf0cf; --yellow-ink: #d4a72c;
+  --grey: #f2eee8;   --grey-ink: #777;
+  --accent: #e63946;
+  --stripe: radial-gradient(circle at 8% 60%, #e63946 0 8px, transparent 9px) 0 0 / 180px 18px, radial-gradient(circle at 22% 30%, #f4a261 0 6px, transparent 7px) 0 0 / 180px 18px, radial-gradient(circle at 40% 70%, #e9c46a 0 9px, transparent 10px) 0 0 / 180px 18px, radial-gradient(circle at 58% 35%, #2a9d8f 0 7px, transparent 8px) 0 0 / 180px 18px, radial-gradient(circle at 75% 65%, #457b9d 0 8px, transparent 9px) 0 0 / 180px 18px, radial-gradient(circle at 92% 40%, #9b5de5 0 7px, transparent 8px) 0 0 / 180px 18px, #fffdf8;
+  --stripe-h: 18px;
+  --progress: linear-gradient(90deg, #e63946, #f4a261, #e9c46a, #2a9d8f, #457b9d);
+  --now: #fff6dc; --slot-hover: #fbf6ff;
+  --head-font: "Kalam", cursive; --head-weight: 700;
+  --deco: "🎨 "; --radius: 6px;
+}
+/* Watercolour wash on card headings */
+[data-theme="art"] .card-head { background-image: radial-gradient(ellipse at 15% 20%, rgba(255,255,255,.65), transparent 55%), radial-gradient(ellipse at 85% 90%, rgba(255,255,255,.4), transparent 50%); }
+[data-theme="art"] .card { border-radius: 6px 14px 8px 12px; }
+
+/* ---------------- Animals ---------------- */
+
+[data-theme="horses"] {
+  --ink: #3b2a1e; --muted: #8a7563; --line: #eadfce; --bg: #f8f3ea; --card: #fffcf6;
+  --purple: #e9e0ee; --purple-ink: #7d5b8f;
+  --pink: #f5dcd3;   --pink-ink: #a8452b;
+  --blue: #dbe8f0;   --blue-ink: #4b7fa3;
+  --green: #e1ead2;  --green-ink: #5d8a3a;
+  --peach: #f1dfc6;  --peach-ink: #9a5b2c;
+  --yellow: #f4eac4; --yellow-ink: #a58424;
+  --grey: #efe7da;   --grey-ink: #8a7563;
+  --accent: #9a5b2c;
+  --stripe: repeating-linear-gradient(90deg, #fffcf6 0 4px, #9a6b43 4px 10px, #fffcf6 10px 40px), linear-gradient(#9a6b43 0 30%, #fffcf6 30% 45%, #9a6b43 45% 75%, #c9e3a7 75%);
+  --stripe-h: 14px;
+  --progress: linear-gradient(90deg, #d9b98a, #9a5b2c);
+  --now: #f7edd2; --slot-line: #f0e8db; --slot-hover: #f6efe4;
+  --head-font: "Lora", Georgia, serif; --head-weight: 700;
+  --deco: "🐴 "; --radius: 10px;
+}
+/* A horseshoe on every card */
+[data-theme="horses"] main .card { position: relative; }
+[data-theme="horses"] main .card::after {
+  content: ""; position: absolute; right: 14px; top: -9px; width: 18px; height: 18px;
+  border: 4px solid #b08a5c; border-top-color: transparent; border-radius: 50%; transform: rotate(180deg);
+}
+
+[data-theme="dogs"] {
+  --ink: #3e3026; --muted: #8d7b6d; --line: #ece0d3; --bg: #fbf6ef; --card: #fffdf9;
+  --purple: #e7e2f2; --purple-ink: #6c5ca8;
+  --pink: #fbdcd9;   --pink-ink: #d64545;
+  --blue: #d8eaf6;   --blue-ink: #2f7fc1;
+  --green: #e0eed8;  --green-ink: #4f8f3a;
+  --peach: #f4e2cc;  --peach-ink: #b06a2c;
+  --yellow: #fbefc8; --yellow-ink: #b88a12;
+  --grey: #f0e8de;   --grey-ink: #8d7b6d;
+  --accent: #d64545;
+  --stripe: repeating-linear-gradient(90deg, #d64545 0 30px, #f2c94c 30px 34px, #d64545 34px 64px);
+  --stripe-h: 10px;
+  --progress: linear-gradient(90deg, #f2c94c, #d64545);
+  --now: #fff3dc; --slot-line: #f3ebe1; --slot-hover: #fbf0ea;
+  --pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Cg fill='%23f1e4d4'%3E%3Cg transform='translate(30 40) rotate(-25)'%3E%3Crect x='6' y='4' width='30' height='8' rx='4'/%3E%3Ccircle cx='6' cy='4' r='5'/%3E%3Ccircle cx='6' cy='12' r='5'/%3E%3Ccircle cx='36' cy='4' r='5'/%3E%3Ccircle cx='36' cy='12' r='5'/%3E%3C/g%3E%3Cg transform='translate(95 105) rotate(20)'%3E%3Crect x='6' y='4' width='30' height='8' rx='4'/%3E%3Ccircle cx='6' cy='4' r='5'/%3E%3Ccircle cx='6' cy='12' r='5'/%3E%3Ccircle cx='36' cy='4' r='5'/%3E%3Ccircle cx='36' cy='12' r='5'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  --head-font: "Baloo 2", "Nunito", sans-serif; --head-weight: 800;
+  --deco: "🐶 "; --radius: 16px;
+}
+/* Floppy ears hanging off each card */
+[data-theme="dogs"] main .card { position: relative; margin-top: 10px; }
+[data-theme="dogs"] main .card::before,
+[data-theme="dogs"] main .card::after {
+  content: ""; position: absolute; top: -6px; width: 20px; height: 34px; background: #b88a62;
+  border-radius: 50% 50% 45% 45% / 30% 30% 70% 70%;
+}
+[data-theme="dogs"] main .card::before { left: -7px; transform: rotate(14deg); }
+[data-theme="dogs"] main .card::after { right: -7px; transform: rotate(-14deg); }
+
+[data-theme="frogs"] {
+  --ink: #233a22; --muted: #6f8a6c; --line: #d9ead2; --bg: #f2f9ee; --card: #fcfffa;
+  --purple: #e8e1f3; --purple-ink: #7a5fae;
+  --pink: #fbdde6;   --pink-ink: #e0628a;
+  --blue: #d6ecf0;   --blue-ink: #2f8fa0;
+  --green: #d5efc8;  --green-ink: #3f9a2e;
+  --peach: #f6e5cc;  --peach-ink: #c4862c;
+  --yellow: #f4f3c4; --yellow-ink: #9a9a10;
+  --grey: #e6f0e1;   --grey-ink: #6f8a6c;
+  --accent: #3f9a2e;
+  --stripe: radial-gradient(circle at 50% 100%, #7cc35f 0 9px, transparent 10px) 0 0 / 28px 14px, #cdeec0;
+  --stripe-h: 14px;
+  --progress: linear-gradient(90deg, #b9e3a3, #3f9a2e);
+  --now: #f3f9d8; --slot-line: #e5f0e0; --slot-hover: #ebf6e6;
+  --pattern: radial-gradient(circle at 30% 30%, #e1f1d8 0 14px, transparent 15px) 0 0 / 120px 120px, radial-gradient(circle at 75% 80%, #e1f1d8 0 10px, transparent 11px) 0 0 / 120px 120px;
+  --head-font: "Chewy", "Nunito", sans-serif; --head-weight: 400;
+  --deco: "🐸 "; --radius: 18px;
+}
+/* Frog eyes peeking over each card */
+[data-theme="frogs"] main .card { position: relative; margin-top: 18px; }
+[data-theme="frogs"] main .card::before,
+[data-theme="frogs"] main .card::after {
+  content: ""; position: absolute; top: -15px; width: 26px; height: 26px; border-radius: 50%;
+  background: radial-gradient(circle at 50% 55%, #1b1b1b 0 4px, #fff 5px 8px, #6cbf4f 9px);
+}
+[data-theme="frogs"] main .card::before { right: 48px; }
+[data-theme="frogs"] main .card::after { right: 18px; }
+[data-theme="frogs"] .card-head h2 { font-size: 1.2rem; letter-spacing: .02em; }
+
+/* ---------------- Simple ---------------- */
+
+[data-theme="minimal"] {
+  --ink: #111111; --muted: #6b6b6b; --line: #e6e6e6; --bg: #ffffff; --card: #ffffff;
+  --purple: #f4f4f5; --purple-ink: #6d5bd0;
+  --pink: #f4f4f5;   --pink-ink: #d0455d;
+  --blue: #f4f4f5;   --blue-ink: #2e7bc4;
+  --green: #f4f4f5;  --green-ink: #2f8a57;
+  --peach: #f4f4f5;  --peach-ink: #c7741f;
+  --yellow: #f4f4f5; --yellow-ink: #a4870c;
+  --grey: #f4f4f5;   --grey-ink: #6b6b6b;
+  --accent: #111111;
+  --stripe: #111111;
+  --stripe-h: 3px;
+  --progress: #111111;
+  --now: #f7f7f2; --slot-line: #f2f2f2; --slot-hover: #f7f7f7;
+  --body-font: "Inter", system-ui, sans-serif;
+  --head-font: "Inter", system-ui, sans-serif; --head-weight: 700; --head-spacing: -.01em;
+  --deco: ""; --radius: 8px;
+}
+[data-theme="minimal"] .card-head { background: transparent; border-bottom: 1px solid var(--line); }
+[data-theme="minimal"] .focus, [data-theme="minimal"] .dump { background: var(--card); }
+[data-theme="minimal"] .stars button, [data-theme="minimal"] .moods button { font-size: 1.5rem; }
+
+/* =========================================================
+   DARK MODE
+   A layer for any light theme: keeps the theme's accent colours
+   and fonts, darkens the surfaces, and tints headings from the
+   theme's own ink colours. Themes that are already dark ignore it.
+   ========================================================= */
+html[data-dark="on"]:not([data-theme="emo"], [data-theme="grunge"], [data-theme="space"], [data-theme="music"], [data-theme="gaming"]),
+html[data-dark="on"] .theme-card:not([data-theme="emo"], [data-theme="grunge"], [data-theme="space"], [data-theme="music"], [data-theme="gaming"]) {
+  --ink: #ecebf0; --muted: #a3a1ad; --line: #2f2e37;
+  --bg: #121216; --card: #1c1c22; --field: #16161b;
+  --purple: color-mix(in srgb, var(--purple-ink) 30%, #1c1c22);
+  --pink: color-mix(in srgb, var(--pink-ink) 30%, #1c1c22);
+  --blue: color-mix(in srgb, var(--blue-ink) 30%, #1c1c22);
+  --green: color-mix(in srgb, var(--green-ink) 30%, #1c1c22);
+  --peach: color-mix(in srgb, var(--peach-ink) 30%, #1c1c22);
+  --yellow: color-mix(in srgb, var(--yellow-ink) 26%, #1c1c22);
+  --grey: #26262d;
+  --now: color-mix(in srgb, var(--yellow-ink) 18%, #1c1c22);
+  --slot-line: #232329; --slot-hover: #24232b;
+  --pattern: none;
+  --on-accent: #ffffff;
+  color-scheme: dark;
+}
+/* Minimal's accent is black, which vanishes on dark */
+html[data-dark="on"][data-theme="minimal"], html[data-dark="on"] .theme-card[data-theme="minimal"] {
+  --accent: #f1f1f1; --on-accent: #111111; --stripe: #f1f1f1; --progress: #f1f1f1;
+}
+html[data-dark="on"]:not([data-theme="emo"], [data-theme="grunge"], [data-theme="space"], [data-theme="music"], [data-theme="gaming"]) .card { box-shadow: none; }
+html[data-dark="on"][data-theme="art"] .card-head { background-image: none; }

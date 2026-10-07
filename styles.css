@@ -302,149 +302,6 @@ legend { font-weight: 700; font-size: .85rem; padding: 0 4px; }
 .hint.small { font-size: .8rem; margin: 6px 0; }
 .form-row .file-btn { flex: none; }
 
-/* =========================================================
-   THEMES
-   Each theme only swaps tokens, so every screen follows along.
-   Selectors are attribute-based (not :root) so the theme picker
-   can preview a theme on just its own swatch.
-   ========================================================= */
-
-[data-theme="rainbow"] {
-  --ink: #2a2440;
-  --muted: #6f6a85;
-  --line: #ece8f5;
-  --bg: #fffdfb;
-  --card: #ffffff;
-  --purple: #e2ccff; --purple-ink: #8b3dff;
-  --pink: #ffc9dc;   --pink-ink: #ff3d8b;
-  --blue: #bfe6ff;   --blue-ink: #1597e5;
-  --green: #c4f2cd;  --green-ink: #1fae4b;
-  --peach: #ffd6ad;  --peach-ink: #ff7a00;
-  --yellow: #fff1a8; --yellow-ink: #d9a400;
-  --grey: #f1eef8;   --grey-ink: #6f6a85;
-  --accent: #ff3d8b;
-  --stripe: linear-gradient(90deg, #ff4d4d, #ff9f1a, #ffd93d, #3ddc84, #2bb3ff, #8b5cff, #ff4dc4);
-  --stripe-h: 12px;
-  --progress: linear-gradient(90deg, #ff4d4d, #ff9f1a, #ffd93d, #3ddc84, #2bb3ff, #8b5cff);
-  --now: #fff7cc;
-  --slot-hover: #fbf3ff;
-  --pattern: radial-gradient(circle at 0% 0%, #ffe3ec 0, transparent 40%), radial-gradient(circle at 100% 30%, #e3f4ff 0, transparent 40%), radial-gradient(circle at 30% 100%, #f1ffe3 0, transparent 45%);
-  --deco: "🌈 ";
-  --radius: 16px;
-}
-[data-theme="rainbow"] .top h1 {
-  background: linear-gradient(90deg, #ff4d4d, #ff9f1a, #e6b800, #1fae4b, #1597e5, #8b3dff);
-  -webkit-background-clip: text; background-clip: text; color: transparent;
-}
-[data-theme="rainbow"] .top h1::before { -webkit-text-fill-color: initial; color: initial; }
-[data-theme="rainbow"] .card { box-shadow: 0 4px 0 var(--line); }
-
-[data-theme="emo"] {
-  --ink: #ecebf0;
-  --muted: #9a98a6;
-  --line: #2e2d36;
-  --bg: #0d0d10;
-  --card: #17171c;
-  --purple: #33204a; --purple-ink: #c77dff;
-  --pink: #4a1530;   --pink-ink: #ff4f9a;
-  --blue: #172a3a;   --blue-ink: #5ab8ff;
-  --green: #1c2e22;  --green-ink: #6fd889;
-  --peach: #3a2216;  --peach-ink: #ff8a4c;
-  --yellow: #33301a; --yellow-ink: #f4d35e;
-  --grey: #24242b;   --grey-ink: #9a98a6;
-  --field: #101014;
-  --accent: #ff2e88;
-  --on-accent: #0d0d10;
-  --stripe: repeating-conic-gradient(#ecebf0 0 25%, #0d0d10 0 50%) 0 0 / 12px 12px;
-  --stripe-h: 12px;
-  --progress: linear-gradient(90deg, #8a2be2, #ff2e88);
-  --now: #2a1225;
-  --slot-line: #212128;
-  --slot-hover: #221a2a;
-  --pattern: repeating-linear-gradient(45deg, transparent 0 22px, rgba(255,255,255,.025) 22px 24px);
-  --head-font: "Permanent Marker", "Nunito", cursive;
-  --head-weight: 400;
-  --deco: "💔 ";
-  --radius: 4px;
-  color-scheme: dark;
-}
-[data-theme="emo"] .card { border-color: #34333d; box-shadow: 3px 3px 0 #000; }
-[data-theme="emo"] .tab.active { box-shadow: 0 0 0 1px var(--accent); }
-[data-theme="emo"] dialog::backdrop { background: rgba(0, 0, 0, .7); }
-
-[data-theme="sporty"] {
-  --ink: #0d1b2a;
-  --muted: #5b6b7d;
-  --line: #d9e1ea;
-  --bg: #eef2f7;
-  --card: #ffffff;
-  --purple: #dbe6ff; --purple-ink: #1d4ed8;
-  --pink: #ffe0d3;   --pink-ink: #ff5a1f;
-  --blue: #d4f1ff;   --blue-ink: #0284c7;
-  --green: #e2f8c4;  --green-ink: #4d8f00;
-  --peach: #ffeac2;  --peach-ink: #e88a00;
-  --yellow: #f6ffb3; --yellow-ink: #8a9a00;
-  --grey: #e4e9f0;   --grey-ink: #475569;
-  --accent: #ff5a1f;
-  --stripe: repeating-linear-gradient(135deg, #13315c 0 16px, #ff5a1f 16px 24px, #c6f432 24px 30px);
-  --stripe-h: 12px;
-  --progress: linear-gradient(90deg, #c6f432, #ff5a1f);
-  --now: #f2ffd1;
-  --slot-line: #e7ecf2;
-  --slot-hover: #eef6ff;
-  --body-font: "Barlow", "Nunito", system-ui, sans-serif;
-  --head-font: "Bebas Neue", "Barlow", sans-serif;
-  --head-weight: 400;
-  --head-case: uppercase;
-  --head-spacing: .04em;
-  --deco: "⚡ ";
-  --radius: 4px;
-}
-[data-theme="sporty"] .top h1 { font-size: 2.4rem; }
-[data-theme="sporty"] .card-head h2 { font-size: 1.35rem; }
-[data-theme="sporty"] .card { border-width: 0 0 0 5px; border-left-color: #13315c; box-shadow: 0 2px 6px rgba(13, 27, 42, .08); }
-[data-theme="sporty"] .card-head { border-radius: 0; }
-[data-theme="sporty"] .tabs { border-radius: 4px; background: #13315c; }
-[data-theme="sporty"] .tab { border-radius: 3px; color: #b9c6d8; font-size: 1.15rem; }
-[data-theme="sporty"] .tab.active { background: #c6f432; color: #0d1b2a; }
-
-[data-theme="cats"] {
-  --ink: #4a3b35;
-  --muted: #9a8478;
-  --line: #f0e2d6;
-  --bg: #fff8f1;
-  --card: #fffdfa;
-  --purple: #efe0f5; --purple-ink: #a466c4;
-  --pink: #ffdfe5;   --pink-ink: #e86a8a;
-  --blue: #dceff5;   --blue-ink: #4f9fb8;
-  --green: #e5f0dc;  --green-ink: #6a9a4c;
-  --peach: #ffe4cc;  --peach-ink: #e08a3c;
-  --yellow: #fff1c9; --yellow-ink: #c99a1e;
-  --grey: #f4ebe4;   --grey-ink: #8a7468;
-  --accent: #e86a8a;
-  --stripe: radial-gradient(circle, #f6b8c6 3px, transparent 3.5px) 0 0 / 14px 10px, #ffe9ee;
-  --stripe-h: 10px;
-  --progress: linear-gradient(90deg, #f6b8c6, #e86a8a);
-  --now: #fff3e0;
-  --slot-line: #f6ece4;
-  --slot-hover: #fff0f3;
-  --pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='%23f6e3d6'%3E%3Cg transform='translate(18 22) rotate(-18)'%3E%3Cellipse cx='12' cy='19' rx='9' ry='7'/%3E%3Ccircle cx='2' cy='9' r='3.4'/%3E%3Ccircle cx='8.5' cy='3' r='3.4'/%3E%3Ccircle cx='15.5' cy='3' r='3.4'/%3E%3Ccircle cx='22' cy='9' r='3.4'/%3E%3C/g%3E%3Cg transform='translate(88 84) rotate(22)'%3E%3Cellipse cx='12' cy='19' rx='9' ry='7'/%3E%3Ccircle cx='2' cy='9' r='3.4'/%3E%3Ccircle cx='8.5' cy='3' r='3.4'/%3E%3Ccircle cx='15.5' cy='3' r='3.4'/%3E%3Ccircle cx='22' cy='9' r='3.4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-  --body-font: "Fredoka", "Nunito", system-ui, sans-serif;
-  --head-font: "Fredoka", "Nunito", system-ui, sans-serif;
-  --head-weight: 600;
-  --deco: "🐱 ";
-  --radius: 18px;
-}
-/* Cat ears on every card */
-[data-theme="cats"] main .card { position: relative; margin-top: 22px; }
-[data-theme="cats"] main .card::before,
-[data-theme="cats"] main .card::after {
-  content: ""; position: absolute; top: -19px; width: 34px; height: 24px;
-  background: #efc2a8; clip-path: polygon(50% 0, 100% 100%, 0 100%);
-}
-[data-theme="cats"] main .card::before { left: 18px; transform: rotate(-14deg); }
-[data-theme="cats"] main .card::after { left: 62px; transform: rotate(14deg); }
-
 /* Theme picker */
 .theme-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
 .theme-card {
@@ -463,6 +320,13 @@ legend { font-weight: 700; font-size: .85rem; padding: 0 4px; }
 .theme-card .tc-dots { display: flex; gap: 5px; margin-top: 8px; }
 .theme-card .tc-dots span { width: 16px; height: 16px; border-radius: 50%; }
 .theme-head { background: var(--pink); }
+.theme-group { margin: 16px 0 8px; font-size: .95rem; color: var(--muted); }
+.theme-group:first-child { margin-top: 4px; }
+.dark-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+.dark-row > span { font-weight: 700; }
+.segmented { display: flex; background: var(--grey); border-radius: 999px; padding: 3px; }
+.segmented button { border: 0; background: transparent; font: inherit; font-weight: 700; font-size: .85rem; color: var(--muted); padding: 6px 12px; border-radius: 999px; cursor: pointer; }
+.segmented button[aria-checked="true"] { background: var(--card); color: var(--ink); box-shadow: 0 1px 3px rgba(0,0,0,.1); }
 
 /* Weekly summary */
 #week-label { font-family: var(--head-font); font-weight: var(--head-weight); font-size: 1.2rem; text-transform: var(--head-case); letter-spacing: var(--head-spacing); }
@@ -507,6 +371,7 @@ legend { font-weight: 700; font-size: .85rem; padding: 0 4px; }
   .mood-cell { font-size: 1.25rem; }
   .hdot { width: 18px; height: 18px; }
 }
+.tab { white-space: nowrap; }
 @media (max-width: 420px) {
-  .tab { padding: 8px 10px; }
+  .tab { padding: 8px 9px; font-size: .95rem; }
 }
