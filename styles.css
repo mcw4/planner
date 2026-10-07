@@ -463,3 +463,50 @@ legend { font-weight: 700; font-size: .85rem; padding: 0 4px; }
 .theme-card .tc-dots { display: flex; gap: 5px; margin-top: 8px; }
 .theme-card .tc-dots span { width: 16px; height: 16px; border-radius: 50%; }
 .theme-head { background: var(--pink); }
+
+/* Weekly summary */
+#week-label { font-family: var(--head-font); font-weight: var(--head-weight); font-size: 1.2rem; text-transform: var(--head-case); letter-spacing: var(--head-spacing); }
+.icon-btn:disabled { opacity: .35; cursor: default; }
+.stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px; }
+@media (max-width: 760px) { .stat-row { grid-template-columns: repeat(2, 1fr); } }
+.stat { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; }
+.stat-label { font-size: .8rem; color: var(--muted); font-weight: 700; }
+.stat-value { font-size: 2rem; font-weight: 800; line-height: 1.2; margin: 2px 0; font-variant-numeric: tabular-nums; }
+.stat-sub { font-size: .8rem; color: var(--muted); }
+.sum-note { background: var(--yellow); border-radius: var(--radius); padding: 10px 14px; margin: 0 0 16px; font-weight: 600; }
+.mood-head { background: var(--blue); }
+.habits-head { background: var(--peach); }
+
+.table-wrap { overflow-x: auto; }
+.sum-table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+.sum-table th, .sum-table td { padding: 8px 4px; text-align: center; border-bottom: 1px solid var(--line); }
+.sum-table tbody tr:last-child th, .sum-table tbody tr:last-child td { border-bottom: 0; }
+.sum-table thead th { font-weight: 700; color: var(--muted); font-size: .8rem; }
+.sum-table thead th small { display: block; font-weight: 400; }
+.sum-table thead th.is-today { color: var(--accent); }
+.sum-table tbody th { text-align: left; font-weight: 700; white-space: nowrap; padding-right: 12px; }
+.sum-table th.habit-name { white-space: normal; min-width: 120px; font-weight: 600; }
+.sum-table td.na { background: repeating-linear-gradient(135deg, transparent 0 5px, var(--grey) 5px 6px); }
+.mood-cell { font-size: 1.5rem; line-height: 1; }
+.dash { color: var(--muted); }
+.score { display: inline-flex; align-items: center; gap: 2px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.score-icon { font-size: .85rem; }
+.mini-energy { display: inline-flex; gap: 2px; }
+.mini-energy i { width: 5px; height: 14px; border-radius: 2px; background: var(--grey); }
+.mini-energy i.on { background: var(--green-ink); }
+.hdot { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--grey); }
+.hdot.done { background: var(--peach); }
+.hdot.done::after { content: "✓"; font-weight: 800; font-size: 13px; color: var(--ink); }
+.sum-table td.count { white-space: nowrap; font-variant-numeric: tabular-nums; font-weight: 700; text-align: left; padding-left: 10px; }
+.meter { display: inline-block; vertical-align: middle; width: 44px; height: 6px; border-radius: 3px; background: var(--grey); margin-right: 6px; overflow: hidden; }
+.meter span { display: block; height: 100%; background: var(--green-ink); border-radius: 3px; }
+.streak { font-weight: 800; color: var(--peach-ink); }
+@media (max-width: 760px) {
+  .sum-table { font-size: .8rem; }
+  .meter { display: none; }
+  .mood-cell { font-size: 1.25rem; }
+  .hdot { width: 18px; height: 18px; }
+}
+@media (max-width: 420px) {
+  .tab { padding: 8px 10px; }
+}

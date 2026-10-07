@@ -30,6 +30,7 @@
     <nav class="tabs" role="tablist">
       <button class="tab active" data-view="today" role="tab">Today</button>
       <button class="tab" data-view="week" role="tab">My Week</button>
+      <button class="tab" data-view="summary" role="tab">Summary</button>
       <button class="tab" data-view="settings" role="tab">Settings</button>
     </nav>
   </header>
@@ -118,6 +119,30 @@
       <div class="day-picker" id="day-picker"></div>
       <div class="week-scroll">
         <div class="week-grid" id="week-grid"></div>
+      </div>
+    </section>
+
+    <!-- SUMMARY -->
+    <section id="view-summary" class="view">
+      <div class="date-bar">
+        <button class="icon-btn" id="prev-week" aria-label="Previous week">‹</button>
+        <div class="date-title">
+          <div id="week-label"></div>
+          <button class="link-btn" id="go-this-week" hidden>Back to this week</button>
+        </div>
+        <button class="icon-btn" id="next-week" aria-label="Next week">›</button>
+      </div>
+      <div class="stat-row" id="sum-stats"></div>
+      <p class="sum-note" id="sum-note" hidden></p>
+
+      <div class="card">
+        <div class="card-head mood-head"><h2>Mood, productivity &amp; energy</h2></div>
+        <div class="table-wrap"><table class="sum-table" id="sum-mood"></table></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head habits-head"><h2>Habits &amp; self care</h2><span id="sum-habits-sub"></span></div>
+        <div class="table-wrap"><table class="sum-table" id="sum-habits"></table></div>
       </div>
     </section>
 

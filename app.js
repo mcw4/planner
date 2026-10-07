@@ -113,6 +113,7 @@
     if (name === "today") renderToday();
     if (name === "week") renderWeek();
     if (name === "settings") renderSettings();
+    if (name === "summary") renderSummary();
   }
   $$(".tab").forEach((t) => t.addEventListener("click", () => showView(t.dataset.view)));
 
@@ -888,6 +889,131 @@
       (r.evening.on && nowMin >= toMin(r.evening.time) && !(day?.productivity && day?.mood && day?.energy)));
     (pending ? navigator.setAppBadge() : navigator.clearAppBadge()).catch(() => {});
   }
+
+  // =========================================================
+  // SUMMARY
+  // =========================================================
+  let summaryWeekStart = mondayOf(new Date());
+
+  function mondayOf(d) {
+    return new Date(d.getFullYear(), d.getMonth(), d.getDate() - ((d.getDay() + 6) % 7));
+  }
+  const addDays = (d, n) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
+
+  // Consecutive days up to today with the habit ticked. Today counts only once
+  // it's ticked, so the streak doesn't look broken first thing in the morning.
+  function currentStreak(habit) {
+    let d = new Date();
+    if (!state.days[dateKey(d)]?.habits[habit]) d = addDays(d, -1);
+    let n = 0;
+    while (state.days[dateKey(d)]?.habits[habit]) { n++; d = addDays(d, -1); }
+    return n;
+  }
+
+  function renderSummary() {
+    const t = currentTheme();
+    const todayKey = dateKey(new Date());
+    const thisWeek = dateKey(summaryWeekStart) === dateKey(mondayOf(new Date()));
+    const dates = DAYS.map((_, i) => addDays(summaryWeekStart, i));
+    // Read without creating empty day records.
+    const week = dates.map((d) => ({ date: d, key: dateKey(d), day: state.days[dateKey(d)], future: dateKey(d) > todayKey }));
+    const elapsed = week.filter((w) => !w.future);
+
+    const end = dates[6];
+    const fmt = (d, opts) => d.toLocaleDateString(undefined, opts);
+    $("#week-label").textContent = thisWeek ? `This week · ${fmt(dates[0], { day: "numeric", month: "short" })} – ${fmt(end, { day: "numeric", month: "short" })}`
+      : `${fmt(dates[0], { day: "numeric", month: "short" })} – ${fmt(end, { day: "numeric", month: "short", year: "numeric" })}`;
+    $("#go-this-week").hidden = thisWeek;
+    $("#next-week").disabled = thisWeek;
+
+    // ---- Headline numbers ----
+    const moods = elapsed.map((w) => w.day?.mood || 0).filter(Boolean);
+    const avgMood = moods.length ? moods.reduce((a, b) => a + b, 0) / moods.length : 0;
+    const checkins = elapsed.filter((w) => w.day && checkinSteps(w.day).every(([, ok]) => ok)).length;
+    const habits = summaryHabits(week);
+    const habitSlots = habits.length * elapsed.length;
+    const habitDone = elapsed.reduce((n, w) => n + habits.filter((h) => w.day?.habits[h]).length, 0);
+    const tasksDone = elapsed.reduce((n, w) => n + (w.day ? Object.values(w.day.lists).flat().filter((i) => i.done && i.text.trim()).length : 0), 0);
+
+    const tile = (label, value, sub) => el("div", { class: "stat" },
+      el("div", { class: "stat-label", text: label }),
+      el("div", { class: "stat-value", text: value }),
+      el("div", { class: "stat-sub", text: sub }));
+    $("#sum-stats").replaceChildren(
+      tile("Average mood", avgMood ? t.moods[Math.round(avgMood) - 1] : "–", avgMood ? `${avgMood.toFixed(1)} out of 5` : "No moods yet"),
+      tile("Daily check-ins", `${checkins}/${elapsed.length}`, "days fully done"),
+      tile("Habits kept", habitSlots ? `${Math.round((habitDone / habitSlots) * 100)}%` : "–", `${habitDone} of ${habitSlots} ticks`),
+      tile("Things ticked off", String(tasksDone), "from your to-do lists"));
+
+    // ---- Gentle note ----
+    const lowDays = moods.filter((m) => m <= 2).length;
+    let note = "";
+    if (lowDays >= 3) note = "Looks like there were a few tough days this week. That's okay. It might help to talk to someone you trust about how you're feeling. 💛";
+    else if (elapsed.length === 7 && checkins === 7) note = "You checked in every single day this week. Amazing! 🎉";
+    else if (moods.length >= 3 && avgMood >= 4) note = "Lots of good days this week. Nice one! ✨";
+    $("#sum-note").textContent = note;
+    $("#sum-note").hidden = !note;
+
+    // ---- Mood / productivity / energy by day ----
+    const head = el("tr", {}, el("th", { scope: "col" }), dates.map((d, i) => el("th", {
+      scope: "col", class: week[i].key === todayKey ? "is-today" : "",
+    }, DAY_NAMES[DAYS[i]].slice(0, 3), el("small", { text: String(d.getDate()) }))));
+    const cell = (w, render) => {
+      if (w.future) return el("td", { class: "na", text: "" });
+      return render(w.day);
+    };
+    const moodRow = el("tr", {}, el("th", { scope: "row", text: "Mood" }), week.map((w) => cell(w, (day) => {
+      const m = day?.mood || 0;
+      return el("td", { class: "mood-cell", title: m ? `Mood ${m}/5` : "Not recorded" }, m ? t.moods[m - 1] : el("span", { class: "dash", text: "·" }));
+    })));
+    const prodRow = el("tr", {}, el("th", { scope: "row", text: "Productivity" }), week.map((w) => cell(w, (day) => {
+      const p = day?.productivity || 0;
+      return el("td", { title: p ? `Productivity ${p}/5` : "Not recorded" }, p ? el("span", { class: "score" }, el("span", { class: "score-icon", text: t.star }), `${p}`) : el("span", { class: "dash", text: "·" }));
+    })));
+    const energyRow = el("tr", {}, el("th", { scope: "row", text: "Energy" }), week.map((w) => cell(w, (day) => {
+      const e = day?.energy || 0;
+      return el("td", { title: e ? `Energy ${e}/5` : "Not recorded" }, e
+        ? el("span", { class: "mini-energy", "aria-label": `Energy ${e} of 5` }, Array.from({ length: 5 }, (_, i) => el("i", { class: i < e ? "on" : "" })))
+        : el("span", { class: "dash", text: "·" }));
+    })));
+    $("#sum-mood").replaceChildren(el("thead", {}, head), el("tbody", {}, moodRow, prodRow, energyRow));
+
+    // ---- Habits grid ----
+    $("#sum-habits-sub").textContent = thisWeek ? "🔥 = days in a row" : "";
+    const hHead = el("tr", {}, el("th", { scope: "col" }), dates.map((d, i) => el("th", {
+      scope: "col", class: week[i].key === todayKey ? "is-today" : "",
+    }, DAY_NAMES[DAYS[i]].slice(0, 1))), el("th", { scope: "col", text: "Done" }), thisWeek ? el("th", { scope: "col", text: "🔥" }) : null);
+    const rows = habits.map((h) => {
+      const done = elapsed.filter((w) => w.day?.habits[h]).length;
+      const pct = elapsed.length ? (done / elapsed.length) * 100 : 0;
+      const streak = thisWeek ? currentStreak(h) : 0;
+      return el("tr", {},
+        el("th", { scope: "row", class: "habit-name", text: h }),
+        week.map((w) => w.future ? el("td", { class: "na" })
+          : el("td", { title: `${h}: ${w.day?.habits[h] ? "done" : "not done"}` },
+            el("span", { class: `hdot${w.day?.habits[h] ? " done" : ""}`, "aria-label": w.day?.habits[h] ? "done" : "not done" }))),
+        el("td", { class: "count" },
+          el("span", { class: "meter" }, el("span", { style: `width:${pct}%` })),
+          el("span", { text: `${done}/${elapsed.length}` })),
+        thisWeek ? el("td", { class: "streak", text: streak >= 2 ? String(streak) : "" }) : null);
+    });
+    $("#sum-habits").replaceChildren(el("thead", {}, hHead), el("tbody", {}, rows.length ? rows
+      : [el("tr", {}, el("td", { class: "empty", colspan: "9", text: "Add some habits in Settings to track them here." }))]));
+  }
+
+  // Current habits, plus any ticked this week that have since been removed from Settings.
+  function summaryHabits(week) {
+    const list = [...state.settings.habits];
+    for (const w of week) {
+      for (const [h, on] of Object.entries(w.day?.habits || {})) if (on && !list.includes(h)) list.push(h);
+    }
+    return list;
+  }
+
+  const shiftWeek = (n) => { summaryWeekStart = addDays(summaryWeekStart, 7 * n); renderSummary(); };
+  $("#prev-week").addEventListener("click", () => shiftWeek(-1));
+  $("#next-week").addEventListener("click", () => shiftWeek(1));
+  $("#go-this-week").addEventListener("click", () => { summaryWeekStart = mondayOf(new Date()); renderSummary(); });
 
   // ---------- Start ----------
   applyTheme();
