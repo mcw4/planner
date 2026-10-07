@@ -4,6 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>My Planner</title>
+  <meta name="theme-color" content="#dcc6f2">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Planner">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
@@ -108,6 +116,34 @@
 
     <!-- SETTINGS -->
     <section id="view-settings" class="view">
+      <div class="card">
+        <div class="card-head install-head"><h2>Put it on your phone</h2></div>
+        <div id="install-box"></div>
+      </div>
+      <div class="card">
+        <div class="card-head reminder-head"><h2>Reminders</h2></div>
+        <div class="reminder-row">
+          <label class="switch"><input type="checkbox" id="r-morning-on"> Morning: plan my day</label>
+          <input type="time" id="r-morning-time">
+        </div>
+        <div class="reminder-row">
+          <label class="switch"><input type="checkbox" id="r-evening-on"> Evening: how did today go?</label>
+          <input type="time" id="r-evening-time">
+        </div>
+        <fieldset>
+          <legend>On these days</legend>
+          <div id="r-days" class="chip-row"></div>
+        </fieldset>
+        <label class="switch"><input type="checkbox" id="r-routine"> Also remind me 5 minutes before each activity in my weekly routine</label>
+
+        <h3 class="sub">Get the reminders</h3>
+        <p class="hint">Reminders come through your phone's calendar app, so they work even when the planner is closed.</p>
+        <button class="primary-btn" id="r-calendar">Add reminders to my calendar</button>
+        <p class="hint small" id="r-calendar-help"></p>
+
+        <label class="switch"><input type="checkbox" id="r-notify"> Also pop up a notification when the planner is open (good on a laptop)</label>
+        <p class="hint small" id="r-notify-status"></p>
+      </div>
       <div class="card">
         <div class="card-head"><h2>Day hours</h2></div>
         <div class="form-row">

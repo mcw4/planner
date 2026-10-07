@@ -22,6 +22,13 @@
       dayStart: "06:00",
       dayEnd: "22:30",
       habits: ["Drink water", "Move my body", "Read for 20 minutes", "Screen-free hour before bed"],
+      reminders: {
+        morning: { on: true, time: "07:00" },
+        evening: { on: true, time: "20:30" },
+        days: [...DAYS],
+        routine: false,
+        notify: false,
+      },
     },
     routine: Object.fromEntries(DAYS.map((d) => [d, []])),
     days: {},
@@ -35,7 +42,11 @@
       const parsed = JSON.parse(raw);
       const base = defaultState();
       return {
-        settings: { ...base.settings, ...parsed.settings },
+        settings: {
+          ...base.settings,
+          ...parsed.settings,
+          reminders: { ...base.settings.reminders, ...parsed.settings?.reminders },
+        },
         routine: { ...base.routine, ...parsed.routine },
         days: parsed.days || {},
       };
@@ -274,6 +285,7 @@
     else if (hour >= 18 && !(day.productivity && day.mood && day.energy)) msg = "How did today go? Rate your productivity, mood and energy at the bottom.";
     else msg = `Daily check-in: ${done} of ${steps.length} done`;
     box.replaceChildren(el("div", { text: msg }), el("div", { class: "bar" }, el("div", { style: `width:${(done / steps.length) * 100}%` })));
+    updateBadge();
   }
 
   // Throttled re-render of progress after typing.
@@ -486,6 +498,8 @@
     $("#set-start").value = state.settings.dayStart;
     $("#set-end").value = state.settings.dayEnd;
     $("#set-habits").value = state.settings.habits.join("\n");
+    renderInstall();
+    renderReminders();
   }
   const roundToSlot = (t) => fromMin(Math.round(toMin(t) / 30) * 30);
   $("#set-start").addEventListener("change", (e) => { if (e.target.value) { state.settings.dayStart = roundToSlot(e.target.value); save(); } });
@@ -520,6 +534,319 @@
       e.target.value = "";
     }
   });
+
+  // =========================================================
+  // INSTALL
+  // =========================================================
+  const ua = navigator.userAgent;
+  const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  const isAndroid = /Android/.test(ua);
+  const isStandalone = () => matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+  let installPrompt = null;
+
+  function renderInstall() {
+    const box = $("#install-box");
+    if (isStandalone()) {
+      box.replaceChildren(el("p", { class: "installed", text: "✓ Installed — you're using the app." }));
+      return;
+    }
+    if (installPrompt) {
+      box.replaceChildren(
+        el("p", { class: "hint", text: "Install the planner so it opens from your home screen like a normal app, and works without internet." }),
+        el("button", {
+          class: "primary-btn", text: "Install app",
+          onclick: async () => {
+            installPrompt.prompt();
+            await installPrompt.userChoice;
+            installPrompt = null;
+            renderInstall();
+          },
+        }));
+      return;
+    }
+    const steps = isIOS
+      ? ["Open this page in Safari.", "Tap the Share button (square with an arrow).", "Choose “Add to Home Screen”, then “Add”."]
+      : isAndroid
+        ? ["Open this page in Chrome.", "Tap the ⋮ menu (top right).", "Choose “Add to Home screen” or “Install app”."]
+        : ["In Chrome or Edge, click the install icon at the right of the address bar.", "Or on a phone, open this page and add it to the home screen."];
+    box.replaceChildren(
+      el("p", { class: "hint", text: "Add the planner to your home screen so it opens like a normal app, and works without internet:" }),
+      el("ol", { class: "install-steps" }, steps.map((t) => el("li", { text: t }))));
+  }
+
+  window.addEventListener("beforeinstallprompt", (e) => {
+    e.preventDefault();
+    installPrompt = e;
+    renderInstall();
+  });
+  window.addEventListener("appinstalled", () => { installPrompt = null; renderInstall(); });
+
+  if ("serviceWorker" in navigator && location.protocol !== "file:") {
+    navigator.serviceWorker.register("sw.js").catch(() => { /* offline support is a bonus */ });
+  }
+
+  // =========================================================
+  // REMINDERS
+  // =========================================================
+  const APP_URL = new URL("./", location.href).href;
+  const ICS_DAYS = { mon: "MO", tue: "TU", wed: "WE", thu: "TH", fri: "FR", sat: "SA", sun: "SU" };
+  const reminders = () => state.settings.reminders;
+
+  function renderReminders() {
+    const r = reminders();
+    $("#r-morning-on").checked = r.morning.on;
+    $("#r-morning-time").value = r.morning.time;
+    $("#r-evening-on").checked = r.evening.on;
+    $("#r-evening-time").value = r.evening.time;
+    $("#r-routine").checked = r.routine;
+    $("#r-notify").checked = r.notify && notifyPermission() === "granted";
+    $("#r-days").replaceChildren(...DAYS.map((d) => {
+      const cb = el("input", { type: "checkbox", value: d });
+      cb.checked = r.days.includes(d);
+      cb.addEventListener("change", () => {
+        r.days = DAYS.filter((x) => x === d ? cb.checked : r.days.includes(x));
+        save();
+      });
+      return el("label", {}, cb, DAY_NAMES[d].slice(0, 3));
+    }));
+
+    $("#r-calendar-help").textContent = isIOS
+      ? "On iPhone: open the downloaded file (it may land in Files → Downloads) and tap “Add All”. If you change your reminders later, delete the old “My Planner” events before adding the new file."
+      : isAndroid
+        ? "On Android: open the downloaded file with your calendar app. If it won't open in Google Calendar, import it on a computer at calendar.google.com → Settings → Import & export, and it will sync to your phone. Re-import after changing your reminders and the events update."
+        : "Open the downloaded file to add it to your calendar app, or import it at calendar.google.com → Settings → Import & export. The reminders then sync to your phone.";
+    renderNotifyStatus();
+  }
+
+  const notifyPermission = () => ("Notification" in window ? Notification.permission : "unsupported");
+  function renderNotifyStatus() {
+    const p = notifyPermission();
+    $("#r-notify-status").textContent =
+      p === "unsupported" ? (isIOS && !isStandalone()
+        ? "On iPhone, notifications only work after installing the planner to your home screen."
+        : "This browser can't show notifications. Use the calendar option above.")
+      : p === "denied" ? "Notifications are blocked for this site. Turn them on in your browser settings to use this."
+      : reminders().notify && p === "granted" ? "On. Only works while the planner is open (it can be in the background)."
+      : "";
+  }
+
+  $("#r-morning-on").addEventListener("change", (e) => { reminders().morning.on = e.target.checked; save(); });
+  $("#r-evening-on").addEventListener("change", (e) => { reminders().evening.on = e.target.checked; save(); });
+  $("#r-morning-time").addEventListener("change", (e) => { if (e.target.value) { reminders().morning.time = e.target.value; save(); } });
+  $("#r-evening-time").addEventListener("change", (e) => { if (e.target.value) { reminders().evening.time = e.target.value; save(); } });
+  $("#r-routine").addEventListener("change", (e) => { reminders().routine = e.target.checked; save(); });
+  $("#r-notify").addEventListener("change", async (e) => {
+    const r = reminders();
+    if (!e.target.checked) { r.notify = false; save(); renderNotifyStatus(); return; }
+    if (notifyPermission() === "unsupported") { e.target.checked = false; renderNotifyStatus(); return; }
+    const p = notifyPermission() === "granted" ? "granted" : await Notification.requestPermission();
+    r.notify = p === "granted";
+    e.target.checked = r.notify;
+    save();
+    renderNotifyStatus();
+    if (r.notify) notify("Reminders are on 👍", "You'll get a nudge at your check-in times while the planner is open.", "test");
+  });
+
+  // ---------- Calendar (.ics) export ----------
+  // Everything below fires from the phone's own calendar app, so it works when the planner is closed.
+  function icsEscape(text) {
+    return String(text).replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\r?\n/g, "\\n");
+  }
+
+  // RFC 5545: lines longer than 75 octets are folded with CRLF + space.
+  function icsFold(line) {
+    const enc = new TextEncoder();
+    const out = [];
+    let cur = "";
+    let bytes = 0;
+    for (const ch of line) {
+      const n = enc.encode(ch).length;
+      if (bytes + n > (out.length ? 74 : 75)) { out.push(cur); cur = ""; bytes = 0; }
+      cur += ch;
+      bytes += n;
+    }
+    out.push(cur);
+    return out.join("\r\n ");
+  }
+
+  const icsDate = (d, minutes) =>
+    `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, "0")}${String(d.getDate()).padStart(2, "0")}` +
+    `T${String(Math.floor(minutes / 60)).padStart(2, "0")}${String(minutes % 60).padStart(2, "0")}00`;
+
+  // First date from today whose weekday is in `days`, so DTSTART is a real occurrence.
+  function firstOccurrence(days) {
+    const d = new Date();
+    for (let i = 0; i < 7; i++) {
+      const c = new Date(d.getFullYear(), d.getMonth(), d.getDate() + i);
+      if (days.includes(weekdayKey(c))) return c;
+    }
+    return d;
+  }
+
+  function hashString(s) {
+    let h = 5381;
+    for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) >>> 0;
+    return h.toString(36);
+  }
+
+  function icsEvent({ uid, title, description, days, start, end, alarmBefore }) {
+    const first = firstOccurrence(days);
+    return [
+      "BEGIN:VEVENT",
+      `UID:${uid}`,
+      `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d+/, "")}`,
+      `DTSTART:${icsDate(first, start)}`,
+      `DTEND:${icsDate(first, end)}`,
+      `RRULE:FREQ=WEEKLY;BYDAY=${DAYS.filter((d) => days.includes(d)).map((d) => ICS_DAYS[d]).join(",")}`,
+      `SUMMARY:${icsEscape(title)}`,
+      `DESCRIPTION:${icsEscape(description)}`,
+      `URL:${APP_URL}`,
+      "TRANSP:TRANSPARENT",
+      "BEGIN:VALARM",
+      "ACTION:DISPLAY",
+      `DESCRIPTION:${icsEscape(title)}`,
+      `TRIGGER:-PT${alarmBefore}M`,
+      "END:VALARM",
+      "END:VEVENT",
+    ];
+  }
+
+  function buildCalendar() {
+    const r = reminders();
+    const events = [];
+    if (r.days.length && r.morning.on) {
+      const s = toMin(r.morning.time);
+      events.push(icsEvent({
+        uid: "planner-morning@my-planner", title: "📝 Plan my day",
+        description: `Pick today's focus and top priorities: ${APP_URL}`,
+        days: r.days, start: s, end: Math.min(s + 10, 24 * 60 - 1), alarmBefore: 0,
+      }));
+    }
+    if (r.days.length && r.evening.on) {
+      const s = toMin(r.evening.time);
+      events.push(icsEvent({
+        uid: "planner-evening@my-planner", title: "🌙 How did today go?",
+        description: `Tick off your day and rate productivity, mood and energy: ${APP_URL}`,
+        days: r.days, start: s, end: Math.min(s + 10, 24 * 60 - 1), alarmBefore: 0,
+      }));
+    }
+    if (r.routine) {
+      // Same activity at the same time on several days becomes one weekly event.
+      const groups = new Map();
+      for (const d of DAYS) {
+        for (const b of state.routine[d]) {
+          const key = [b.title, b.start, b.end, b.notes || ""].join("|");
+          if (!groups.has(key)) groups.set(key, { b, days: [] });
+          groups.get(key).days.push(d);
+        }
+      }
+      for (const [key, { b, days }] of groups) {
+        events.push(icsEvent({
+          uid: `planner-routine-${hashString(key)}@my-planner`, title: b.title,
+          description: [b.notes, `My Planner: ${APP_URL}`].filter(Boolean).join("\n\n"),
+          days, start: toMin(b.start), end: toMin(b.end), alarmBefore: 5,
+        }));
+      }
+    }
+    const lines = [
+      "BEGIN:VCALENDAR",
+      "VERSION:2.0",
+      "PRODID:-//My Planner//EN",
+      "CALSCALE:GREGORIAN",
+      "METHOD:PUBLISH",
+      "X-WR-CALNAME:My Planner",
+      ...events.flat(),
+      "END:VCALENDAR",
+    ];
+    return { text: lines.map(icsFold).join("\r\n") + "\r\n", count: events.length };
+  }
+
+  $("#r-calendar").addEventListener("click", () => {
+    const { text, count } = buildCalendar();
+    if (!count) {
+      alert("Turn on at least one reminder (and pick some days) first.");
+      return;
+    }
+    const blob = new Blob([text], { type: "text/calendar;charset=utf-8" });
+    const a = el("a", { href: URL.createObjectURL(blob), download: "my-planner-reminders.ics" });
+    document.body.append(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 10000);
+  });
+
+  // ---------- In-app notifications (while the planner is open) ----------
+  async function notify(title, body, tag) {
+    const opts = { body, tag, icon: "icons/icon-192.png", badge: "icons/icon-192.png", data: { url: APP_URL } };
+    try {
+      const reg = "serviceWorker" in navigator ? await navigator.serviceWorker.getRegistration() : null;
+      if (reg) { await reg.showNotification(title, opts); return; }
+      new Notification(title, opts);
+    } catch { /* notifications are best-effort */ }
+  }
+
+  const FIRED_KEY = "planner.fired";
+  function firedToday() {
+    const today = dateKey(new Date());
+    try {
+      const f = JSON.parse(localStorage.getItem(FIRED_KEY));
+      if (f && f.date === today) return f;
+    } catch { /* ignore */ }
+    return { date: today, ids: [] };
+  }
+
+  // Reminders due today, as minutes after midnight.
+  function dueToday() {
+    const r = reminders();
+    const now = new Date();
+    const wk = weekdayKey(now);
+    const day = getDay(dateKey(now));
+    const list = [];
+    if (r.days.includes(wk)) {
+      if (r.morning.on && !day.focus.trim()) {
+        list.push({ id: "morning", at: toMin(r.morning.time), title: "📝 Plan your day", body: "Pick today's focus and your top priorities." });
+      }
+      if (r.evening.on && !(day.productivity && day.mood && day.energy)) {
+        list.push({ id: "evening", at: toMin(r.evening.time), title: "🌙 How did today go?", body: "Tick off your day and rate your productivity, mood and energy." });
+      }
+    }
+    if (r.routine) {
+      for (const b of scheduleFor(day, now)) {
+        list.push({ id: `block-${b.id}`, at: toMin(b.start) - 5, title: `${b.title} at ${pretty(b.start)}`, body: b.notes || "Coming up in 5 minutes." });
+      }
+    }
+    return list;
+  }
+
+  function checkReminders() {
+    if (!reminders().notify || notifyPermission() !== "granted") return;
+    const now = new Date();
+    const nowMin = now.getHours() * 60 + now.getMinutes();
+    const fired = firedToday();
+    for (const item of dueToday()) {
+      // A small window so a throttled background tab still catches it, without
+      // firing a whole morning of stale reminders when the app is opened at lunch.
+      if (nowMin >= item.at && nowMin < item.at + 5 && !fired.ids.includes(item.id)) {
+        fired.ids.push(item.id);
+        notify(item.title, item.body, item.id);
+      }
+    }
+    try { localStorage.setItem(FIRED_KEY, JSON.stringify(fired)); } catch { /* ignore */ }
+  }
+  setInterval(checkReminders, 30 * 1000);
+
+  // App icon badge: a dot when today's check-in still needs doing (installed app only).
+  function updateBadge() {
+    if (!("setAppBadge" in navigator)) return;
+    const now = new Date();
+    const r = reminders();
+    const day = state.days[dateKey(now)];
+    const nowMin = now.getHours() * 60 + now.getMinutes();
+    const pending = r.days.includes(weekdayKey(now)) && (
+      (r.morning.on && nowMin >= toMin(r.morning.time) && !day?.focus.trim()) ||
+      (r.evening.on && nowMin >= toMin(r.evening.time) && !(day?.productivity && day?.mood && day?.energy)));
+    (pending ? navigator.setAppBadge() : navigator.clearAppBadge()).catch(() => {});
+  }
 
   // ---------- Start ----------
   renderToday();

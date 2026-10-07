@@ -262,3 +262,17 @@ legend { font-weight: 700; font-size: .85rem; padding: 0 4px; }
 .dialog-btns { display: flex; gap: 8px; margin-top: 8px; }
 .spacer { flex: 1; }
 .error { color: var(--pink-ink); font-size: .85rem; min-height: 1em; margin: 0; }
+
+/* Install + reminders */
+.install-head { background: var(--purple); }
+.reminder-head { background: var(--yellow); }
+.install-steps { margin: 6px 0 0; padding-left: 20px; line-height: 1.7; }
+.installed { color: var(--green-ink); font-weight: 700; }
+.reminder-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 6px 0; border-bottom: 1px solid var(--line); margin-bottom: 8px; }
+.reminder-row input[type="time"] { width: 130px; flex: none; }
+.switch { display: flex; align-items: center; gap: 8px; font-weight: 600; margin: 10px 0; cursor: pointer; }
+.switch input { width: 18px; height: 18px; accent-color: var(--purple-ink); flex: none; }
+.reminder-row .switch { margin: 0; }
+.sub { margin: 18px 0 4px; font-size: 1rem; }
+.hint.small { font-size: .8rem; margin: 6px 0; }
+.form-row .file-btn { flex: none; }
