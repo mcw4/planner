@@ -375,3 +375,19 @@ legend { font-weight: 700; font-size: .85rem; padding: 0 4px; }
 @media (max-width: 420px) {
   .tab { padding: 8px 9px; font-size: .95rem; }
 }
+
+/* Patterns */
+.patterns-head { background: var(--purple); }
+.patterns { list-style: none; margin: 0; padding: 0; }
+.patterns li { padding: 10px 0 12px; border-bottom: 1px solid var(--line); }
+.patterns li:last-child { border-bottom: 0; }
+.pattern-text { margin: 0 0 8px; font-weight: 700; }
+.pbar { display: grid; grid-template-columns: 64px 1fr 32px 56px; align-items: center; gap: 8px; font-size: .8rem; margin-top: 4px; }
+.pbar-label { color: var(--muted); }
+.pbar-track { height: 10px; border-radius: 5px; background: var(--grey); overflow: hidden; }
+.pbar-track span { display: block; height: 100%; border-radius: 5px; }
+.pbar.with .pbar-track span { background: var(--accent); }
+.pbar.without .pbar-track span { background: var(--grey-ink); opacity: .55; }
+.pbar-value { font-weight: 800; font-variant-numeric: tabular-nums; text-align: right; }
+.pbar-n { color: var(--muted); }
+.meter.wide { width: 100%; max-width: 280px; height: 8px; display: block; margin: 4px 0 8px; }

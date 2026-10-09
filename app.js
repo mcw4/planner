@@ -1043,6 +1043,8 @@
     });
     $("#sum-habits").replaceChildren(el("thead", {}, hHead), el("tbody", {}, rows.length ? rows
       : [el("tr", {}, el("td", { class: "empty", colspan: "9", text: "Add some habits in Settings to track them here." }))]));
+
+    renderPatterns();
   }
 
   // Current habits, plus any ticked this week that have since been removed from Settings.
@@ -1052,6 +1054,111 @@
       for (const [h, on] of Object.entries(w.day?.habits || {})) if (on && !list.includes(h)) list.push(h);
     }
     return list;
+  }
+
+  // ---------- Patterns ----------
+  // Looks back over recent check-ins and compares how she rated days that had
+  // something (a habit ticked, sport planned, a weekend...) with days that didn't.
+  // Only clear, consistent differences are shown, worded as patterns, not causes.
+  const PATTERN_WINDOW_DAYS = 42;
+  // Thresholds were tuned on simulated data: with these, random ratings almost
+  // never produce a pattern, while real effects of ~1 point show up within a few weeks.
+  const PATTERN_MIN_DAYS = 14;    // rated days needed before showing anything
+  const PATTERN_MIN_GROUP = 4;    // days needed on each side of a comparison
+  const PATTERN_MIN_DIFF = 0.5;   // on the 1–5 scale
+  const PATTERN_MIN_T = 3;        // Welch t statistic: well clear of chance
+  const PATTERN_MIN_VAR = 0.6;    // assumed minimum day-to-day spread in ratings
+  const METRICS = [["mood", "mood"], ["energy", "energy"], ["productivity", "productivity"]];
+
+  // Minutes of a routine category planned that day. Uses the current weekly routine,
+  // so it reflects the plan as it is now rather than as it was on that date.
+  function plannedMinutes(day, date, cat) {
+    return scheduleFor(day, date).filter((b) => b.cat === cat).reduce((n, b) => n + toMin(b.end) - toMin(b.start), 0);
+  }
+
+  function patternFactors(days) {
+    const factors = [
+      { id: "weekend", phrase: "at weekends", test: (d) => ["sat", "sun"].includes(weekdayKey(d.date)) },
+      { id: "focus", phrase: "on days you set a focus", test: (d) => !!d.day.focus.trim() },
+      {
+        id: "priorities", phrase: "on days you finished all your priorities",
+        test: (d) => { const p = d.day.lists.priorities.filter((i) => i.text.trim()); return p.length > 0 && p.every((i) => i.done); },
+      },
+      { id: "activity", phrase: "on days with sport or an activity planned", test: (d) => plannedMinutes(d.day, d.date, "activity") > 0 },
+      { id: "homework", phrase: "on days with 2+ hours of homework planned", test: (d) => plannedMinutes(d.day, d.date, "homework") >= 120 },
+      { id: "free", phrase: "on days with 1½+ hours of free time planned", test: (d) => plannedMinutes(d.day, d.date, "free") >= 90 },
+    ];
+    const habits = new Set(state.settings.habits);
+    for (const d of days) for (const [h, on] of Object.entries(d.day.habits || {})) if (on) habits.add(h);
+    for (const h of habits) factors.push({ id: `habit:${h}`, phrase: `on days you ticked “${h}”`, test: (d) => !!d.day.habits[h] });
+    return factors;
+  }
+
+  const mean = (xs) => xs.reduce((a, b) => a + b, 0) / xs.length;
+  const variance = (xs) => { const m = mean(xs); return xs.reduce((a, x) => a + (x - m) ** 2, 0) / Math.max(1, xs.length - 1); };
+
+  function findPatterns() {
+    const today = new Date();
+    const days = [];
+    for (let i = 0; i < PATTERN_WINDOW_DAYS; i++) {
+      const date = addDays(today, -i);
+      const day = state.days[dateKey(date)];
+      if (day && (day.mood || day.energy || day.productivity)) days.push({ date, day });
+    }
+    if (days.length < PATTERN_MIN_DAYS) return { count: days.length, patterns: [] };
+
+    const found = [];
+    for (const f of patternFactors(days)) {
+      const flags = days.map((d) => f.test(d));
+      let best = null;
+      for (const [key, label] of METRICS) {
+        const yes = days.filter((d, i) => flags[i] && d.day[key]).map((d) => d.day[key]);
+        const no = days.filter((d, i) => !flags[i] && d.day[key]).map((d) => d.day[key]);
+        if (yes.length < PATTERN_MIN_GROUP || no.length < PATTERN_MIN_GROUP) continue;
+        const diff = mean(yes) - mean(no);
+        // Floor the variance so a handful of similar ratings can't look "certain".
+        const se = Math.sqrt(Math.max(variance(yes), PATTERN_MIN_VAR) / yes.length + Math.max(variance(no), PATTERN_MIN_VAR) / no.length);
+        const t = diff / se;
+        if (Math.abs(diff) < PATTERN_MIN_DIFF || Math.abs(t) < PATTERN_MIN_T) continue;
+        if (!best || Math.abs(t) > Math.abs(best.t)) best = { factor: f, metric: key, label, yes, no, diff, t };
+      }
+      if (best) found.push(best); // at most one pattern per factor: its strongest
+    }
+    found.sort((a, b) => Math.abs(b.t) - Math.abs(a.t));
+    return { count: days.length, patterns: found.slice(0, 4) };
+  }
+
+  function renderPatterns() {
+    const { count, patterns } = findPatterns();
+    const box = $("#patterns");
+    $("#patterns-sub").textContent = count >= PATTERN_MIN_DAYS ? `From your last ${count} check-ins` : "";
+
+    if (count < PATTERN_MIN_DAYS) {
+      box.replaceChildren(
+        el("p", { class: "empty", text: `Patterns show up after ${PATTERN_MIN_DAYS} days of rating your mood, energy or productivity. You've got ${count} so far. Keep going!` }),
+        el("span", { class: "meter wide" }, el("span", { style: `width:${(count / PATTERN_MIN_DAYS) * 100}%` })));
+      return;
+    }
+    if (!patterns.length) {
+      box.replaceChildren(el("p", { class: "empty", text: "No clear patterns yet. Keep checking in and they'll appear here as they show up." }));
+      return;
+    }
+
+    const bar = (label, value, n, cls) => el("div", { class: `pbar ${cls}` },
+      el("span", { class: "pbar-label", text: label }),
+      el("span", { class: "pbar-track" }, el("span", { style: `width:${(value / 5) * 100}%` })),
+      el("span", { class: "pbar-value", text: `${value.toFixed(1)}` }),
+      el("span", { class: "pbar-n", text: `${n} day${n === 1 ? "" : "s"}` }));
+
+    box.replaceChildren(
+      el("ul", { class: "patterns" }, patterns.map((p) => {
+        const sentence = `Your ${p.label} tends to be ${p.diff > 0 ? "higher" : "lower"} ${p.factor.phrase}.`;
+        return el("li", {},
+          el("p", { class: "pattern-text", text: sentence }),
+          bar("With", mean(p.yes), p.yes.length, "with"),
+          bar("Without", mean(p.no), p.no.length, "without"));
+      })),
+      el("p", { class: "hint small", text: "These are patterns, not proof. Lots of things affect how you feel. Average ratings out of 5." }));
   }
 
   const shiftWeek = (n) => { summaryWeekStart = addDays(summaryWeekStart, 7 * n); renderSummary(); };
