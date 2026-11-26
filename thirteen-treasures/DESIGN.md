@@ -259,7 +259,7 @@ reason to come back.
   4. **The Glass House finale** and the generosity ending.
   5. **Polish:** audio, hints, score, accessibility options.
 
-**Suggested first complete version:** the six Blackmill and Ogmore valley chapters
+**Suggested first complete version** (detailed in `VALLEY.md`): the six Blackmill and Ogmore valley chapters
 (1 Halter, 4 Knife, 5 Crock, 7 Whetstone, 9 Chariot, 11 Mantle of Arthur) plus a
 shortened Glass House finale. The other six chapters, further afield, follow as
 expansions.
