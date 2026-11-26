@@ -1,4 +1,4 @@
-# The Thirteen Treasures — Design Document (draft 4)
+# The Thirteen Treasures — Design Document (draft 5)
 
 An original top-down, Zelda-style adventure for the browser that retells British and Welsh
 myth through a quest for the **Thirteen Treasures of the Island of Britain**. Each Treasure
@@ -17,6 +17,11 @@ for the rest of the game.
 - Blackmill is now a full home region built from real local places: Allt-y-Rhiw,
   Cwm Rhyd y Milwr, Mynwent y Milwyr and Mynydd y Gaer. Three Treasure chapters happen
   there, and the sleeping Arthur is on the mountain above the village (§3a).
+
+**What changed in draft 5:** more of Blackmill went into the game: the two pubs, Dimbath
+valley and Dimbath Rocks, and the River Ogmore running down to Ogmore Castle. **Six of
+the twelve chapters** now happen in Blackmill and the Ogmore valley, which makes a natural
+first complete version (§11).
 
 ---
 
@@ -85,6 +90,12 @@ places carry real local stories. Spellings and meanings need checking with someo
 | Place | What it is in real life | In the game |
 | --- | --- | --- |
 | **Blackmill village** | Where the Ogwr Fach meets the Ogwr Fawr | Home. The Glass Shard is in the river at the meeting of the rivers. Prologue chapter: the Halter |
+| **The Junction** (pub) | One of the village's two pubs | The village's news hub. Regulars trade rumours that point toward chapters, and the noticeboard holds side quests |
+| **The Fox and Hounds** (pub) | The other pub | Its sign shows hounds, and the landlord swears the **Hounds of Annwn** run past on wild nights, white with red ears. That's where you first hear of them. Late on, the sign changes after you've met Gwyn ap Nudd |
+| **River Ogmore** | Flows from Blackmill down to Ogmore Castle and the sea | The route south. The **Afanc** lurks in its deep pools (it's what spooked the prologue pony). Once you have the Halter, you ride the riverbank down to the castle |
+| **Ogmore Castle** | Ruined castle with stepping stones, and the real White Lady legend | **The White Lady** (chapter 7, the Whetstone) at the end of the river |
+| **Dimbath** | An empty valley with ancient homesteads | Quiet and eerie. Ruined round-house walls where something still lives. Old coal levels run under the hillside |
+| **Dimbath Rocks** | A rocky outcrop above the valley | **The Knockers' home** (chapter 4, the Knife): their tunnels run beneath the rocks. On certain nights the rocks are also a **door to Annwn**, where Gwyn ap Nudd holds court and keeps his Hounds |
 | **Allt-y-Rhiw** | Ancient woodland | **The Fair Folk's wood** (chapter 5, Crock and Dish). Old oaks, a fairy ring in a clearing, and paths that aren't there in daylight |
 | **Cwm Rhyd y Milwr** | "Valley of the soldier's ford" (*rhyd* means ford) | **The soldiers' road** (chapter 9, the Chariot). Ghost soldiers still march down the valley to the ford at night, and each one guards a piece of the Chariot |
 | **Mynwent y Milwyr** | "Graveyard of the soldiers": a cairn on the mountain | Where the ghost soldiers rest. Lay them to rest here at the end of chapter 9, and they open the way up the mountain |
@@ -112,13 +123,13 @@ test, and the power you keep.
 
 | # | Treasure | The legend | The chapter | The test | Power you keep |
 | --- | --- | --- | --- | --- | --- |
-| 1 | **Halter of Clydno Eiddyn** | Tie it to your bedpost and the horse you wish for will be standing in it by morning | **Prologue, Blackmill:** the Halter is caught on a wild river pony that's terrorising the village allotments | Calm the pony instead of chasing it, by working out what spooked it | **Summon a horse:** fast overworld travel, jump streams and fences |
+| 1 | **Halter of Clydno Eiddyn** | Tie it to your bedpost and the horse you wish for will be standing in it by morning | **Prologue, Blackmill:** the Halter is caught on a wild river pony that's terrorising the village allotments | Calm the pony instead of chasing it. It was spooked by the Afanc in the river, so lead it away from the water | **Summon a horse:** fast overworld travel, jump streams and fences |
 | 2 | **Horn of Brân Galed** | Holds whatever drink you wish for | **The Thirsty Valley:** a valley in drought. A grumpy giant has dammed the river to keep it for himself | Outwit the giant at a drinking contest, since the Horn never empties, but only once you've found it in his cellar | **Pour any drink:** water (fires, plants), milk (the Fair Folk love it), mead (sends guards to sleep) |
 | 3 | **Hamper of Gwyddno Garanhir** | Food for one becomes food for a hundred | **The Drowned Hundred (Cantre'r Gwaelod):** Gwyddno's kingdom under the sea, lost when the drunken watchman Seithennyn left the floodgates open. Its bells still ring under the waves | Find Seithennyn's ghost, sober him up (Horn: water) and get him to close the gates in time, in a timed tide puzzle | **Multiply food:** one apple feeds a flock, a pack or an army, so it calms or recruits groups |
-| 4 | **Knife of Llawfrodedd the Horseman** | Serves twenty-four people at once | **The Knockers' Pit:** an old mine where the Knockers, small mine spirits, knock warnings | Learn their knock-language (rhythm puzzle) to cross the collapsing galleries | **Cut 24 things at once:** sweep through webs, briars and ropes in one stroke |
+| 4 | **Knife of Llawfrodedd the Horseman** | Serves twenty-four people at once | **Dimbath Rocks (Blackmill):** old coal levels under the rocks, where the Knockers, small mine spirits, knock warnings | Learn their knock-language (rhythm puzzle) to cross the collapsing galleries | **Cut 24 things at once:** sweep through webs, briars and ropes in one stroke |
 | 5 | **Crock and Dish of Rhygenydd the Scholar** | Whatever food you wish for appears | **Allt-y-Rhiw (Blackmill):** the Tylwyth Teg (fairies) hold a feast and steal the Crock for it | Get into the fairy ring (pour milk), dance without stepping out, and remember that **time runs differently**: a minute inside is a day outside | **Conjure a dish:** give any creature exactly what it craves (bribes, trades, cures) |
 | 6 | **Coat of Padarn Red-Coat** | Fits a person of true worth and no one else | **The Saint's Road:** pilgrims, beggars and a disguised Saint Padarn along an old pilgrim route | The Coat only fits after you've helped people who can't repay you. It tracks kindness quietly | **Armour:** halves damage, and shrinks if you are cruel |
-| 7 | **Whetstone of Tudwal Tudglyd** | Sharpens a brave person's blade so it always wounds; a coward's stays blunt | **Ogmore Castle:** the White Lady (a real local ghost) guards treasure under the ruins and offers you half her gold | Take **only the Whetstone**. In the legend greed gets you cursed, so here the gold turns to leaves and she scratches you | **Sharpen:** your staff becomes a blade, but only while you don't run from fights |
+| 7 | **Whetstone of Tudwal Tudglyd** | Sharpens a brave person's blade so it always wounds; a coward's stays blunt | **Ogmore Castle (down the River Ogmore):** the White Lady (a real local ghost) guards treasure under the ruins and offers you half her gold | Take **only the Whetstone**. In the legend greed gets you cursed, so here the gold turns to leaves and she scratches you | **Sharpen:** your staff becomes a blade, but only while you don't run from fights |
 | 8 | **Cauldron of Dyrnwch the Giant** | Won't boil a coward's meat | **The Giant's Hall:** borrowed from *Culhwch and Olwen*, where Arthur's men raid a giant's hall for his cauldron | Stand your ground while the hall tests you with charging ghosts, a collapsing floor and the giant's roar. Flinch and the water won't boil | **Brave broth:** cook a meal that gives a full heal and a temporary extra heart, but only if you've been brave since the last meal |
 | 9 | **Chariot of Morgan the Wealthy** | Takes its rider wherever they wish, at once | **Cwm Rhyd y Milwr (Blackmill):** the Chariot lies in pieces along the valley, where ghost soldiers still march to the ford at night | Find the wheels, the axle and the yoke. Each is held by a ghost soldier who wants something different. Then lay the soldiers to rest at Mynwent y Milwyr | **Fast travel** between places you've visited, and it can carry Treasures home to Bardsey |
 | 10 | **Gwyddbwyll board of Gwenddoleu** | A board game whose pieces play by themselves | **The Wild Wood:** Merlin wandered mad in this forest after the battle where King Gwenddoleu fell. The board still plays the battle on its own | Beat the board at its own game: a top-down tactics puzzle where the forest *is* the board | **Foresight:** shows where enemies will move next and reveals patrol routes |
@@ -177,7 +188,7 @@ test, and the power you keep.
 | **Cadi** | The corgi companion. Fairy-touched and food-motivated. |
 | **Merlin** (in the Shard) | Cryptic, vain, funny, and fading. His voice grows clearer with each Treasure. Narrates the legends. |
 | **Blodeuwedd** | The hint-giver, a woman made from flowers and turned into an owl in the Mabinogion. Dry, sharp, secretly kind. |
-| **Gwyn ap Nudd** | King of the Otherworld and master of the Hounds. Neither friend nor foe. He turns up now and then to bargain, and seems to know who broke the Glass House. |
+| **Gwyn ap Nudd** | King of the Otherworld and master of the Hounds, who holds court behind Dimbath Rocks. Neither friend nor foe. He turns up now and then to bargain, and seems to know who broke the Glass House. |
 | **Legendary cameos** | Seithennyn the drunk watchman, the White Lady, the Knockers, the Fair Folk, Saint Padarn, Arthur and his sleeping warriors, the Lady of the Fountain, the Black Knight, the Water Horse, a river Afanc. |
 
 ## 8a. Naming the hero
@@ -247,6 +258,11 @@ reason to come back.
   3. **Chapters 3 to 6,** then **7 to 10,** then **11 and 12.**
   4. **The Glass House finale** and the generosity ending.
   5. **Polish:** audio, hints, score, accessibility options.
+
+**Suggested first complete version:** the six Blackmill and Ogmore valley chapters
+(1 Halter, 4 Knife, 5 Crock, 7 Whetstone, 9 Chariot, 11 Mantle of Arthur) plus a
+shortened Glass House finale. The other six chapters, further afield, follow as
+expansions.
 
 ## 12. Parked ideas (not in this version)
 
