@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Thirteen Treasures</title>
+<meta name="theme-color" content="#14121c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <div id="stage">
+    <header id="hud" aria-live="polite">
+      <div class="hud-left">
+        <div id="hud-place">Blackmill</div>
+        <div id="hud-objective"></div>
+      </div>
+      <div class="hud-right">
+        <div id="hud-hum" hidden><span class="hum-gem" aria-hidden="true"></span><span id="hud-hum-text"></span></div>
+        <button id="btn-menu" class="hud-btn" type="button">Menu</button>
+        <button id="btn-sound" class="hud-btn" type="button" aria-pressed="true">Sound on</button>
+      </div>
+    </header>
+
+    <div id="play">
+      <canvas id="game" width="256" height="176" aria-label="Game screen"></canvas>
+
+      <div id="toast" role="status" hidden></div>
+
+      <div id="dialogue" hidden>
+        <div id="dlg-who"></div>
+        <p id="dlg-text"></p>
+        <span id="dlg-next" aria-hidden="true">▼</span>
+      </div>
+
+      <section id="title" class="overlay">
+        <div class="panel">
+          <p class="kicker">A Blackmill adventure</p>
+          <h1>The Thirteen Treasures</h1>
+          <p class="sub">Chapter 1: The Runaway Pony</p>
+          <div class="btn-col">
+            <button id="btn-new" class="big-btn" type="button">New game</button>
+            <button id="btn-continue" class="big-btn ghost" type="button" hidden>Continue</button>
+          </div>
+          <p class="help">Arrows or WASD to move · Space to talk and act · hold Shift to sneak · K to ride · Tab for the menu</p>
+        </div>
+      </section>
+
+      <section id="newgame" class="overlay" hidden>
+        <form class="panel" id="newgame-form">
+          <h2>Who are you?</h2>
+          <label class="field">
+            <span>Your name</span>
+            <input id="ng-name" maxlength="12" autocomplete="off" placeholder="Wren">
+          </label>
+          <div class="look">
+            <canvas id="ng-preview" width="16" height="16" aria-label="Your character"></canvas>
+            <div class="pickers">
+              <div class="picker"><span>Hair</span><div id="pick-hair" class="swatches"></div></div>
+              <div class="picker"><span>Skin</span><div id="pick-skin" class="swatches"></div></div>
+              <div class="picker"><span>Tunic</span><div id="pick-tunic" class="swatches"></div></div>
+            </div>
+          </div>
+          <div class="btn-row">
+            <button type="button" id="ng-back" class="big-btn ghost">Back</button>
+            <button type="submit" class="big-btn">Begin</button>
+          </div>
+        </form>
+      </section>
+
+      <section id="menu" class="overlay" hidden>
+        <div class="panel wide">
+          <h2>Journey</h2>
+          <div class="menu-grid">
+            <div>
+              <h3>Treasures</h3>
+              <ul id="menu-treasures"></ul>
+              <h3>Things you carry</h3>
+              <ul id="menu-items"></ul>
+            </div>
+            <div>
+              <h3>Legends Book</h3>
+              <div id="menu-legends"></div>
+            </div>
+          </div>
+          <div class="btn-row"><button type="button" id="menu-close" class="big-btn">Back to the game</button></div>
+        </div>
+      </section>
+
+      <section id="chapter" class="overlay" hidden>
+        <div class="panel">
+          <p class="kicker" id="ch-kicker">Chapter 1 complete</p>
+          <h2 id="ch-title"></h2>
+          <p id="ch-power" class="power"></p>
+          <div class="legend-card">
+            <h3>From the Legends Book</h3>
+            <p id="ch-legend"></p>
+          </div>
+          <div class="btn-row"><button type="button" id="ch-close" class="big-btn">Carry on</button></div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div id="controls" aria-label="Touch controls">
+    <div class="dpad">
+      <button type="button" data-key="up" aria-label="Up" class="d up"></button>
+      <button type="button" data-key="left" aria-label="Left" class="d left"></button>
+      <button type="button" data-key="right" aria-label="Right" class="d right"></button>
+      <button type="button" data-key="down" aria-label="Down" class="d down"></button>
+    </div>
+    <div class="actions">
+      <button type="button" data-key="sneak" class="act sneak">Sneak</button>
+      <button type="button" data-key="b" class="act b">B<small>Ride</small></button>
+      <button type="button" data-key="a" class="act a">A<small>Act</small></button>
+    </div>
+  </div>
+</div>
+
+<script src="src/engine.js"></script>
+<script src="src/art.js"></script>
+<script src="src/world.js"></script>
+<script src="src/ui.js"></script>
+<script src="src/game.js"></script>
+<script src="src/main.js"></script>
+</body>
+</html>
