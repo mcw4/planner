@@ -1,4 +1,4 @@
-# The Thirteen Treasures — Design Document (draft 3)
+# The Thirteen Treasures — Design Document (draft 4)
 
 An original top-down, Zelda-style adventure for the browser that retells British and Welsh
 myth through a quest for the **Thirteen Treasures of the Island of Britain**. Each Treasure
@@ -12,6 +12,12 @@ for the rest of the game.
 - Mam-gu is gone, and Black Ifan is parked (§12).
 - The game starts in Blackmill and ends at Merlin's Glass House.
 
+**What changed in draft 4:**
+- The player names the hero, for example with their own name (§8).
+- Blackmill is now a full home region built from real local places: Allt-y-Rhiw,
+  Cwm Rhyd y Milwr, Mynwent y Milwyr and Mynydd y Gaer. Three Treasure chapters happen
+  there, and the sleeping Arthur is on the mountain above the village (§3a).
+
 ---
 
 ## 1. Pitch
@@ -24,7 +30,7 @@ Then one night the Glass House shatters. Nobody knows how. The Thirteen Treasure
 back across the land and fall into the stories they came from: a drowned kingdom, a
 giant's hall, a fairy wood, a haunted castle, a sleeping king's cave.
 
-In the river at **Blackmill**, **Wren** finds a shard of singing glass. It speaks in
+In the river at **Blackmill**, **the hero** (named by the player) finds a shard of singing glass. It speaks in
 Merlin's voice, faint and cracked: *"Bring them home."* The shard hums when a Treasure is
 near.
 
@@ -54,7 +60,7 @@ Suitable for about 10 and up.
 
 ## 3. How the game is structured
 
-- **Blackmill (prologue):** Wren's home village where the rivers meet. Find the Glass
+- **Blackmill (prologue and home region):** the hero's home village where the rivers meet. Find the Glass
   Shard, learn the controls, and win the first, easy Treasure.
 - **The Map of Britain:** a stylised overworld running north from Blackmill. Regions open
   as you gain Treasure powers. For example, the Halter's horse jumps rivers and the
@@ -62,12 +68,31 @@ Suitable for about 10 and up.
 - **Treasure Chapters:** 12 self-contained quests (§5), each with an entry, a puzzle
   space or dungeon, the legend's test, and the Treasure. After the first few, you can do
   them in many different orders.
+- **Coming home:** Blackmill's woods, valley and mountain hold three of the chapters
+  (§3a). Some open early, but the mountain only gives up its secret late in the game.
 - **The Glass House (finale):** cross to Bardsey and rebuild the house with the Treasures.
   The 13th, **Dyrnwyn**, is decided by how you played (§6).
 
 There is no main villain in this draft. The pressure comes from the legends themselves:
 the **Hounds of Annwn** hunt anyone carrying Treasures at night, giants and spirits guard
 their prizes, and there's the mystery of who broke the Glass House.
+
+## 3a. Blackmill: the home region
+
+Blackmill isn't just a starting village. It's a hub you keep coming back to, and its real
+places carry real local stories. Spellings and meanings need checking with someone local.
+
+| Place | What it is in real life | In the game |
+| --- | --- | --- |
+| **Blackmill village** | Where the Ogwr Fach meets the Ogwr Fawr | Home. The Glass Shard is in the river at the meeting of the rivers. Prologue chapter: the Halter |
+| **Allt-y-Rhiw** | Ancient woodland | **The Fair Folk's wood** (chapter 5, Crock and Dish). Old oaks, a fairy ring in a clearing, and paths that aren't there in daylight |
+| **Cwm Rhyd y Milwr** | "Valley of the soldier's ford" (*rhyd* means ford) | **The soldiers' road** (chapter 9, the Chariot). Ghost soldiers still march down the valley to the ford at night, and each one guards a piece of the Chariot |
+| **Mynwent y Milwyr** | "Graveyard of the soldiers": a cairn on the mountain | Where the ghost soldiers rest. Lay them to rest here at the end of chapter 9, and they open the way up the mountain |
+| **Mynydd y Gaer** | "Fortress mountain", with an old hillfort, an ancient church, and a local claim that King Arthur was buried here | **Arthur's resting place** (chapter 11, Mantle of Arthur). Arthur isn't dead but asleep beneath the mountain, under a hazel by the old fort. The church holds the clue to finding the way in |
+
+**Why it works:** the player sees the mountain from the very first screen. The story they
+hear in the village, that Arthur is buried up there, sounds like an old tale. Late in the
+game they find out it's true, and that the king was on their doorstep all along.
 
 ## 4. Controls
 
@@ -91,13 +116,13 @@ test, and the power you keep.
 | 2 | **Horn of Brân Galed** | Holds whatever drink you wish for | **The Thirsty Valley:** a valley in drought. A grumpy giant has dammed the river to keep it for himself | Outwit the giant at a drinking contest, since the Horn never empties, but only once you've found it in his cellar | **Pour any drink:** water (fires, plants), milk (the Fair Folk love it), mead (sends guards to sleep) |
 | 3 | **Hamper of Gwyddno Garanhir** | Food for one becomes food for a hundred | **The Drowned Hundred (Cantre'r Gwaelod):** Gwyddno's kingdom under the sea, lost when the drunken watchman Seithennyn left the floodgates open. Its bells still ring under the waves | Find Seithennyn's ghost, sober him up (Horn: water) and get him to close the gates in time, in a timed tide puzzle | **Multiply food:** one apple feeds a flock, a pack or an army, so it calms or recruits groups |
 | 4 | **Knife of Llawfrodedd the Horseman** | Serves twenty-four people at once | **The Knockers' Pit:** an old mine where the Knockers, small mine spirits, knock warnings | Learn their knock-language (rhythm puzzle) to cross the collapsing galleries | **Cut 24 things at once:** sweep through webs, briars and ropes in one stroke |
-| 5 | **Crock and Dish of Rhygenydd the Scholar** | Whatever food you wish for appears | **The Fair Folk's Wood:** the Tylwyth Teg (fairies) hold a feast and steal the Crock for it | Get into the fairy ring (pour milk), dance without stepping out, and remember that **time runs differently**: a minute inside is a day outside | **Conjure a dish:** give any creature exactly what it craves (bribes, trades, cures) |
+| 5 | **Crock and Dish of Rhygenydd the Scholar** | Whatever food you wish for appears | **Allt-y-Rhiw (Blackmill):** the Tylwyth Teg (fairies) hold a feast and steal the Crock for it | Get into the fairy ring (pour milk), dance without stepping out, and remember that **time runs differently**: a minute inside is a day outside | **Conjure a dish:** give any creature exactly what it craves (bribes, trades, cures) |
 | 6 | **Coat of Padarn Red-Coat** | Fits a person of true worth and no one else | **The Saint's Road:** pilgrims, beggars and a disguised Saint Padarn along an old pilgrim route | The Coat only fits after you've helped people who can't repay you. It tracks kindness quietly | **Armour:** halves damage, and shrinks if you are cruel |
 | 7 | **Whetstone of Tudwal Tudglyd** | Sharpens a brave person's blade so it always wounds; a coward's stays blunt | **Ogmore Castle:** the White Lady (a real local ghost) guards treasure under the ruins and offers you half her gold | Take **only the Whetstone**. In the legend greed gets you cursed, so here the gold turns to leaves and she scratches you | **Sharpen:** your staff becomes a blade, but only while you don't run from fights |
 | 8 | **Cauldron of Dyrnwch the Giant** | Won't boil a coward's meat | **The Giant's Hall:** borrowed from *Culhwch and Olwen*, where Arthur's men raid a giant's hall for his cauldron | Stand your ground while the hall tests you with charging ghosts, a collapsing floor and the giant's roar. Flinch and the water won't boil | **Brave broth:** cook a meal that gives a full heal and a temporary extra heart, but only if you've been brave since the last meal |
-| 9 | **Chariot of Morgan the Wealthy** | Takes its rider wherever they wish, at once | **The Broken Road:** the Chariot lies in pieces along a Roman road haunted by marching ghost legions | Find the wheels, the axle and the yoke. Each is held by a ghost who wants something different | **Fast travel** between places you've visited, and it can carry Treasures home to Bardsey |
+| 9 | **Chariot of Morgan the Wealthy** | Takes its rider wherever they wish, at once | **Cwm Rhyd y Milwr (Blackmill):** the Chariot lies in pieces along the valley, where ghost soldiers still march to the ford at night | Find the wheels, the axle and the yoke. Each is held by a ghost soldier who wants something different. Then lay the soldiers to rest at Mynwent y Milwyr | **Fast travel** between places you've visited, and it can carry Treasures home to Bardsey |
 | 10 | **Gwyddbwyll board of Gwenddoleu** | A board game whose pieces play by themselves | **The Wild Wood:** Merlin wandered mad in this forest after the battle where King Gwenddoleu fell. The board still plays the battle on its own | Beat the board at its own game: a top-down tactics puzzle where the forest *is* the board | **Foresight:** shows where enemies will move next and reveals patrol routes |
-| 11 | **Mantle of Arthur** | Whoever wears it can't be seen, but can see everything | **Arthur's Cave:** Arthur sleeps under a hazel tree with his warriors. A bell hangs in the passage, and if it rings a warrior wakes and asks *"Is it day?"* The only safe answer is *"No, sleep on."* | Find the cave (hazel clue), slip past the bell and borrow the Mantle from the sleeping king without waking anyone. If you do ring it, answer correctly | **Invisibility** while standing still or walking slowly |
+| 11 | **Mantle of Arthur** | Whoever wears it can't be seen, but can see everything | **Mynydd y Gaer (Blackmill):** local legend says Arthur was buried on this mountain. In fact he sleeps beneath it, under a hazel by the old fort, with his warriors. A bell hangs in the passage, and if it rings a warrior wakes and asks *"Is it day?"* The only safe answer is *"No, sleep on."* | Find the way in (the clue is in the old church on the mountain), slip past the bell and borrow the Mantle from the sleeping king without waking anyone. If you do ring it, answer correctly | **Invisibility** while standing still or walking slowly |
 | 12 | **Mantle of Tegau Gold-Breast** | Only fits someone faithful and true; on a liar it shrinks | **The Lady of the Fountain's Court:** a court of schemers. Pour water on the stone by the magic fountain and a storm brings the Black Knight | Unmask three liars in the court to clear an innocent knight, then face the Black Knight at the fountain | **Truth-sight:** lies in dialogue glow red, which unlocks secret answers and trades across the game |
 | 13 | **Dyrnwyn, sword of Rhydderch the Generous** | Bursts into flame when a worthy person draws it. Rhydderch offered it to anyone, but it burned everyone unworthy, so all refused | **The Glass House** (finale, §6) | Whether you've been generous throughout the game | The ending |
 
@@ -148,12 +173,21 @@ test, and the power you keep.
 
 | Character | Role |
 | --- | --- |
-| **Wren** | The hero, a Blackmill kid who can be renamed. Curious and quick-witted. |
+| **The hero** | A Blackmill kid. **The player names them**, for example with their own name, and picks a look (§8a). Everyone in the game uses that name. Curious and quick-witted. |
 | **Cadi** | The corgi companion. Fairy-touched and food-motivated. |
 | **Merlin** (in the Shard) | Cryptic, vain, funny, and fading. His voice grows clearer with each Treasure. Narrates the legends. |
 | **Blodeuwedd** | The hint-giver, a woman made from flowers and turned into an owl in the Mabinogion. Dry, sharp, secretly kind. |
 | **Gwyn ap Nudd** | King of the Otherworld and master of the Hounds. Neither friend nor foe. He turns up now and then to bargain, and seems to know who broke the Glass House. |
 | **Legendary cameos** | Seithennyn the drunk watchman, the White Lady, the Knockers, the Fair Folk, Saint Padarn, Arthur and his sleeping warriors, the Lady of the Fountain, the Black Knight, the Water Horse, a river Afanc. |
+
+## 8a. Naming the hero
+
+- The first screen asks **"What's your name?"** The name is used everywhere: in dialogue,
+  in Merlin's voice from the Shard, by the Legends Book ("as told by …") and on the end
+  screen. "Wren" is only the default if the player leaves it blank.
+- The player picks a look from a few presets: hair, skin tone and tunic colour, plus
+  boy, girl or neither. Dialogue never assumes a gender; characters use the name or "you".
+- Each save slot keeps its own name, so siblings can each have a game.
 
 ## 9. Puzzle and power dependencies
 
@@ -231,5 +265,6 @@ reason to come back.
    the last?
 3. **Scope:** 12 chapters is big. For a first complete game, we could do 6 chapters plus
    the finale and add the rest later. Which legends do you like best?
-4. **Blackmill:** what should the prologue include? Real landmarks would make it feel
-   like home.
+4. **Blackmill:** more landmarks would help: the chapel, the bridge, the old railway,
+   the pub, the rivers. And is the "ancient church" on Mynydd y Gaer the one I've
+   assumed (§3a)?
